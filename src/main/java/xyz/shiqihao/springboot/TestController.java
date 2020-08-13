@@ -15,4 +15,11 @@ public class TestController {
         log.info("parameter: {}", res);
         return res;
     }
+
+    @GetMapping("/lyj")
+    public String lyj() {
+        String res = "hello, lyj!";
+        log.info("parameter: {}", res);
+        return res;
+    }
 }
