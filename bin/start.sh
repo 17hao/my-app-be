@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ROOT=`pwd`/..
+ROOT=`pwd`
 
 #exec ${ROOT}/gradlew build
 
