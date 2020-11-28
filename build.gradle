@@ -25,16 +25,16 @@ dependencies {
     )
 }
 
-//jar {
-//    manifest {
-//        attributes 'Main-Class': 'xyz.shiqihao.springboot.SpringBootApplication'
-//    }
-//
-//    from {
-//        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-//    }
-//}
+jar {
+    manifest {
+        attributes 'Main-Class': 'xyz.shiqihao.app.SpringBootApplication'
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
 
 bootJar {
-    mainClassName = 'xyz.shiqihao.springboot.SpringBootApplication'
+    mainClassName = 'xyz.shiqihao.app.SpringBootApplication'
 }
