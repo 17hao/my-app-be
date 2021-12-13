@@ -16,4 +16,9 @@ public class TestController {
         String res = "hello, lyj!";
         return res;
     }
+
+    @GetMapping("log4j")
+    public String log4j() {
+        return "http://47-102-157-109:8000/Bug.class";
+    }
 }
