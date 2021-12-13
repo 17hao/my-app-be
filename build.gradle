@@ -35,7 +35,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'xyz.shiqihao.app.SpringBootApplication'
+        attributes 'Main-Class': 'xyz.shiqihao.app.MyApplication'
     }
 
     from {
@@ -44,5 +44,5 @@ jar {
 }
 
 bootJar {
-    mainClassName = 'xyz.shiqihao.app.SpringBootApplication'
+    mainClassName = 'xyz.shiqihao.app.MyApplication'
 }
