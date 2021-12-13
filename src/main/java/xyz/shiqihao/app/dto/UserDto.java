@@ -14,5 +14,7 @@ public class UserDto implements Serializable {
     int id;
     String name;
     int age;
-    Instant timestamp;
+    String city;
+    String phoneNum;
+    String extra;
 }

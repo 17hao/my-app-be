@@ -4,7 +4,10 @@ plugins {
 }
 
 repositories {
-    maven { url 'https://maven.aliyun.com/repository/public/' }
+    maven {
+        url 'https://maven.aliyun.com/repository/public/'
+        mavenCentral()
+    }
 }
 
 dependencies {
@@ -16,9 +19,14 @@ dependencies {
             'org.mybatis:mybatis:3.5.2',
             'org.mybatis:mybatis-spring:2.0.2',
             'org.postgresql:postgresql:42.2.16',
+            'mysql:mysql-connector-java:8.0.16',
             'com.fasterxml.jackson.core:jackson-core:2.10.0',
             'com.fasterxml.jackson.core:jackson-annotations:2.10.0',
-            'com.fasterxml.jackson.core:jackson-databind:2.10.0'
+            'com.fasterxml.jackson.core:jackson-databind:2.10.0',
+            'org.springframework.boot:spring-boot-starter-security',
+            'org.springframework.ldap:spring-ldap-core',
+            'org.springframework.security:spring-security-ldap',
+            'com.unboundid:unboundid-ldapsdk'
     )
     testCompile(
             'junit:junit:4.12'

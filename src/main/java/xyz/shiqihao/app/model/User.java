@@ -10,11 +10,26 @@ import java.time.Instant;
 @AllArgsConstructor
 public class User {
     private int id;
+
     private String name;
+
     private int age;
 
+    private String city;
+
+    private String phoneNum;
+
+    private String extra;
+
     public UserDto translateToDto() {
-        return new UserDto(this.getId(), this.getName(), this.getAge(), Instant.now());
+        return new UserDto(
+                this.getId(),
+                this.getName(),
+                this.getAge(),
+                this.getCity(),
+                this.getPhoneNum(),
+                this.getExtra()
+        );
     }
 
 }
