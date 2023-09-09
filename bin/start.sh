@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-ROOT=`pwd`
+ROOT=$(pwd)
 
-#exec ${ROOT}/gradlew build
+if [ -d "${ROOT}"/build/libs ]; then
+  rm -rf "${ROOT}"/build
+fi
 
-JAR_PATH=${ROOT}/build/libs/springboot.jar
-JVM_ARGUMENTS="-server -XX:+UseG1GC -Xmx512M"
-nohup java -jar $JAR_PATH $JVM_ARGUMENTS &
+bash "${ROOT}"/gradlew build
+
+java -jar "${ROOT}"/build/libs/my-site-be.jar
