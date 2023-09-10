@@ -9,7 +9,7 @@ import java.time.Instant;
 @Data
 @AllArgsConstructor
 public class User {
-    private int id;
+    private long id;
 
     private String name;
 
@@ -25,10 +25,7 @@ public class User {
         return new UserDto(
                 this.getId(),
                 this.getName(),
-                this.getAge(),
-                this.getCity(),
-                this.getPhoneNum(),
-                this.getExtra()
+                this.getAge()
         );
     }
 

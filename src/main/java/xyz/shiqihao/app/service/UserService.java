@@ -28,7 +28,6 @@ public class UserService {
     public UserDto insert(UserForm form) {
         User user = form.buildUser();
         userDao.insert(user);
-        // user.setId(id);
         return user.translateToDto();
     }
 }

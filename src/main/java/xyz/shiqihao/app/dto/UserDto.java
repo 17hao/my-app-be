@@ -10,10 +10,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto implements Serializable {
-    int id;
+    long id;
     String name;
     int age;
-    String city;
-    String phoneNum;
-    String extra;
 }

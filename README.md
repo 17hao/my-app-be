@@ -16,7 +16,7 @@ How to start server inside container?
 docker run --network host -it -d 17hao/my-site-be
 ```
 
-How to test server is running?
+How to check if the server is running?
 ```bash
 curl --location 'localhost:9999/test'
 ```
