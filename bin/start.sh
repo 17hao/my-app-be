@@ -8,4 +8,4 @@ fi
 
 bash "${ROOT}"/gradlew build
 
-java -jar "${ROOT}"/build/libs/my-site-be.jar
+java -DLOGDIR="${ROOT}" -jar "${ROOT}"/build/libs/my-site-be.jar

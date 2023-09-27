@@ -1,3 +1,4 @@
 FROM openjdk:11
-COPY build/libs/my-site-be.jar /opt
-CMD ["java", "-jar", "/opt/my-site-be.jar"]
+RUN mkdir -p /opt/my-site-be
+COPY ./build/libs/my-site-be.jar /opt/my-site-be
+CMD ["java", "-DLOGDIR=/opt/my-site-be", "-jar", "/opt/my-site-be/my-site-be.jar"]
