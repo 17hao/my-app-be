@@ -1,4 +1,4 @@
-# my-site-be
+# my-app-be
 
 How to start server?
 
@@ -9,15 +9,15 @@ bash bin/start.sh
 How to build and push docker image?
 
 ```bash
- docker build -t 17hao/my-site-be:latest .
- docker push 17hao/my-site-be:latest
+ docker build -t 17hao/my-app-be:latest .
+ docker push 17hao/my-app-be:latest
 ```
 
 How to start server with docker?
 
 ```bash
 # Linux
-docker run --name my-site-be --network host -it -d 17hao/my-site-be
+docker run --name my-app-be --network host -it -d 17hao/my-app-be
 
 # Mac
 # TODO
