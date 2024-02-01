@@ -10,16 +10,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class AddressDTO implements Serializable {
-    String country;
-    String city;
-}
-
 @RestController
 public class TestController {
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    static class AddressDTO implements Serializable {
+        String country;
+        String city;
+    }
+
     @GetMapping("/test")
     public List<AddressDTO> test() {
         List<AddressDTO> res = new ArrayList<>();

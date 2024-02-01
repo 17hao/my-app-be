@@ -15,6 +15,7 @@ dependencies {
     implementation(
             'org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE',
             'org.springframework:spring-jdbc:5.2.5.RELEASE',
+            'org.springframework:spring-websocket:5.2.2.RELEASE',
             'org.projectlombok:lombok:1.18.12',
             'org.mybatis:mybatis:3.5.2',
             'org.mybatis:mybatis-spring:2.0.2',
@@ -31,7 +32,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'xyz.shiqihao.app.MyApplication'
+        attributes 'Main-Class': 'xyz.shiqihao.MyApplication'
     }
 
     from {
@@ -40,5 +41,5 @@ jar {
 }
 
 bootJar {
-    mainClassName = 'xyz.shiqihao.app.MyApplication'
+    mainClassName = 'xyz.shiqihao.MyApplication'
 }

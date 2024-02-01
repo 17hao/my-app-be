@@ -1,4 +1,4 @@
-package xyz.shiqihao.app;
+package xyz.shiqihao;
 
 import org.springframework.boot.SpringApplication;
 

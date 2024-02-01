@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import xyz.shiqihao.app.dto.UserDto;
 
-import java.time.Instant;
-
 @Data
 @AllArgsConstructor
 public class User {
