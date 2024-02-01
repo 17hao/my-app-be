@@ -46,14 +46,18 @@ public class IDGenerator {
 
 
         // 2. generating node id based on mac address
-        NetworkInterface macAddr;
+        long nodeID;
+        NetworkInterface macAddr = null;
         try {
             InetAddress ipAddr = InetAddress.getLocalHost();
             macAddr = NetworkInterface.getByInetAddress(ipAddr);
-        } catch (UnknownHostException | SocketException e) {
-            throw new RuntimeException(e);
+        } catch (UnknownHostException | SocketException | NullPointerException e) {
         }
-        long nodeID = Math.abs(macAddr.hashCode());
+        if (macAddr == null) {
+            nodeID = Math.abs("52:54:00:ee:d7:55".hashCode());
+        } else {
+            nodeID = Math.abs(macAddr.hashCode());
+        }
 
         // 3. generating sequence number
         Lock lock = new ReentrantLock();
