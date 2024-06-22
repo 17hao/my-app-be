@@ -2,12 +2,14 @@ package xyz.shiqihao.app.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import xyz.shiqihao.app.dto.UserDto;
 
 @Data
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class User {
-    private long id;
+    private final long id;
 
     private String name;
 

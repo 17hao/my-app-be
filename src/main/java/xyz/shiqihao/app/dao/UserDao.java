@@ -1,13 +1,13 @@
 package xyz.shiqihao.app.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 import xyz.shiqihao.app.model.User;
-
-import java.util.List;
 
 @Component
 @Mapper

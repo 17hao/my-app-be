@@ -1,14 +1,14 @@
 package xyz.shiqihao.app.controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class TestController {
