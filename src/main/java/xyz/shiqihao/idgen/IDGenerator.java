@@ -78,13 +78,13 @@ public class IDGenerator {
         String log = "%-10s=%-12d id=%d 0b(%64s)";
 
         id |= (nodeID << (NUM_SEQ_NUM_BITS + NUM_TIMESTAMP_BITS));
-        LOGGER.info(String.format(log, "nodeID", nodeID, id, Long.toBinaryString(id)));
+        LOGGER.debug(String.format(log, "nodeID", nodeID, id, Long.toBinaryString(id)));
 
         id |= (timestamp << NUM_SEQ_NUM_BITS);
-        LOGGER.info(String.format(log, "timestamp", timestamp, id, Long.toBinaryString(id)));
+        LOGGER.debug(String.format(log, "timestamp", timestamp, id, Long.toBinaryString(id)));
 
         id |= seq;
-        LOGGER.info(String.format(log, "seq", seq, id, Long.toBinaryString(id)));
+        LOGGER.debug(String.format(log, "seq", seq, id, Long.toBinaryString(id)));
 
         return id;
     }
