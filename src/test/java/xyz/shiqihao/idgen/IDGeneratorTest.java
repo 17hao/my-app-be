@@ -13,6 +13,7 @@ public class IDGeneratorTest {
         for (int i = 0; i < 100000; i++) {
             long newID = IDGenerator.gen();
             Assert.assertTrue(newID > id);
+            id = newID;
         }
         System.out.println("time usage: " + (Instant.now().getEpochSecond() - start) + "s");
     }
