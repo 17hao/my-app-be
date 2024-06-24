@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.idgen;
+package xyz.shiqihao.idgen;
 
 import java.time.Instant;
 
