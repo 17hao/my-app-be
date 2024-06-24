@@ -5,45 +5,50 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.time.Instant;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * ID generator based on Twitter snowflake alg.
+ * 41-bit timestamp    10-bit node id    12-bit sequence no    1-bit extra bit
  * <p>
- * 41-bit timestamp        10-bit node id        12-bit sequence no        1-bit extra bit
+ * seata改进版
+ * https://seata.apache.org/zh-cn/blog/seata-analysis-UUID-generator/
+ * 1-bit extra bit    10-bit node id    41-bit timestamp    12-bit sequence no
  */
 public class IDGenerator {
-    private static int NODE_ID_BITS = 10;
+    private static final Logger LOGGER = LogManager.getLogger();
 
-    private static int SEQ_NUM_BITS = 13;
+    private static final int NUM_NODE_ID_BITS = 10;
 
-    private static long CUSTOM_EPOCH = 1672502400000L; // 2023-01-01 00:00
+    private static final int NUM_TIMESTAMP_BITS = 41;
 
-    private static int MAX_SEQ = (1 << 11) - 1;
+    private static final int NUM_SEQ_NUM_BITS = 12;
+
+    private static final long INITIAL_TIMESTAMP = Instant.now().toEpochMilli();
+
+    private static final long CUSTOM_EPOCH = 1640966400000L; // 2022-01-01 00:00，这个值不能太大，太大会凑不满41-bit
+
+    private static final int MAX_SEQ = (1 << NUM_SEQ_NUM_BITS) - 1;
+
+    // 解决时钟漂移问题，时间戳和序列号作为连续的整体，序列号到达上限后不再等待下一秒，而是直接进位给时间戳加一
+    // 时间戳只在系统启动阶段获取一次
+    private static long timestamp = INITIAL_TIMESTAMP - CUSTOM_EPOCH;
 
     private static int seq = 0;
-
-    private static long lastTimestamp = 0L;
-
-    private static long timestamp() {
-        return Instant.now().toEpochMilli() - CUSTOM_EPOCH;
-    }
 
     /**
      * TODO:
      * 1. pressure testing
      * 2. concurrently update last timestamp and current timestamp
      * 3. mac addr mapping to node id
-     * 4. wait until next millisecond
      */
     public static long gen() {
         long id = 0;
 
         // 1. generating epoch timestamp, millisecond precision
-        long currentTs = timestamp();
-
+        // 改良版只在系统启动时获取一次时间戳，后续所有获取id的操作都基于这个时间戳递增
 
         // 2. generating node id based on mac address
         long nodeID;
@@ -52,42 +57,34 @@ public class IDGenerator {
             InetAddress ipAddr = InetAddress.getLocalHost();
             macAddr = NetworkInterface.getByInetAddress(ipAddr);
         } catch (UnknownHostException | SocketException | NullPointerException e) {
+            // logging
         }
         if (macAddr == null) {
             nodeID = Math.abs("52:54:00:ee:d7:55".hashCode());
         } else {
             nodeID = Math.abs(macAddr.hashCode());
         }
+        nodeID = nodeID << (64 - NUM_NODE_ID_BITS);
+        nodeID = nodeID >>> (64 - NUM_NODE_ID_BITS); // nodeID只保留10-bit
 
         // 3. generating sequence number
-        Lock lock = new ReentrantLock();
-        lock.lock();
-        if (currentTs == lastTimestamp) {
-            seq = (seq + 1) & MAX_SEQ;
-            if (seq == 0) {
-                // max seq reached, wait until next millisecond
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                currentTs += 1;
-            } else {
-                seq = 0;
-            }
-        } else {
-            seq = 0;
+        seq = (seq + 1) & MAX_SEQ; // e.g. 1022 & 1023 == 1022    1024 & 1023 == 0
+        if (seq == 0) { // max seq number reached
+            timestamp++;
         }
-        lock.unlock();
+        timestamp = timestamp << (64 - NUM_TIMESTAMP_BITS);
+        timestamp = timestamp >>> (64 - NUM_TIMESTAMP_BITS);
 
-        id |= (currentTs << (NODE_ID_BITS + SEQ_NUM_BITS));
-        Logger.getAnonymousLogger().info(String.format("step1 id=%s 0b(%s)", id, Long.toBinaryString(id)));
+        String log = "%-10s=%-12d id=%d 0b(%64s)";
 
-        id |= (nodeID << SEQ_NUM_BITS);
-        Logger.getAnonymousLogger().info(String.format("step2 nodeID=%d id=%s 0b(%s)", nodeID, id, Long.toBinaryString(id)));
+        id |= (nodeID << (NUM_SEQ_NUM_BITS + NUM_TIMESTAMP_BITS));
+        LOGGER.info(String.format(log, "nodeID", nodeID, id, Long.toBinaryString(id)));
+
+        id |= (timestamp << NUM_SEQ_NUM_BITS);
+        LOGGER.info(String.format(log, "timestamp", timestamp, id, Long.toBinaryString(id)));
 
         id |= seq;
-        Logger.getAnonymousLogger().info(String.format("step3 seq=%d id=%s 0b(%s)", seq, id, Long.toBinaryString(id)));
+        LOGGER.info(String.format(log, "seq", seq, id, Long.toBinaryString(id)));
 
         return id;
     }
