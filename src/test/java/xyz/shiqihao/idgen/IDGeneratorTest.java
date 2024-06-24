@@ -4,7 +4,6 @@ import java.time.Instant;
 
 import org.junit.Assert;
 import org.junit.Test;
-import xyz.shiqihao.idgen.IDGenerator;
 
 public class IDGeneratorTest {
     @Test
