@@ -34,6 +34,9 @@ public class IDGenerator {
 
     // 解决时钟漂移问题，时间戳和序列号作为连续的整体，序列号到达上限后不再等待下一秒，而是直接进位给时间戳加一
     // 时间戳只在系统启动阶段获取一次
+    //
+    // 如果qps大于4096/ms，超前使用了未来的时间戳，系统重启时会不会导致id重复？
+    // 理论上有可能，实际上几乎不可能，4096/ms约等于400w/s，这个量级的请求，瓶颈会在其他系统
     private static long timestamp = INITIAL_TIMESTAMP - CUSTOM_EPOCH;
 
     private static int seq = 0;
