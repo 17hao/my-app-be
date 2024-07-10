@@ -27,7 +27,8 @@ public class User {
         return new UserDto(
                 this.getId(),
                 this.getName(),
-                this.getAge()
+                this.getAge(),
+                this.isDeleted()
         );
     }
 

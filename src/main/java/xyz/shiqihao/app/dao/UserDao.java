@@ -21,7 +21,7 @@ public interface UserDao {
     })
     User findById(int id);
 
-    @Select("select * from users where is_deleted = false;")
+    @Select("select * from users where is_deleted = true;")
     @ResultMap("userMap")
     List<User> findAllUsers();
 
