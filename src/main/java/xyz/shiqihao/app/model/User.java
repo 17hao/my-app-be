@@ -21,6 +21,8 @@ public class User {
 
     private String extra;
 
+    private boolean deleted;
+
     public UserDto translateToDto() {
         return new UserDto(
                 this.getId(),

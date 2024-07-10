@@ -17,6 +17,6 @@ public class UserForm {
     String extra;
 
     public User buildUser() {
-        return new User(IDGenerator.gen(), this.name, this.age, this.city, this.phoneNum, this.extra);
+        return new User(IDGenerator.gen(), this.name, this.age, this.city, this.phoneNum, this.extra, false);
     }
 }

@@ -16,7 +16,11 @@ public class UserService {
     private UserDao userDao;
 
     public UserDto findById(int id) {
-        return userDao.findById(id).translateToDto();
+        User user = userDao.findById(id);
+        if (user == null) {
+            return null;
+        }
+        return user.translateToDto();
     }
 
     public List<UserDto> findAllUsers() {
