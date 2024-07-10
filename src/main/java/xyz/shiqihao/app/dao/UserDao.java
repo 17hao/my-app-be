@@ -21,9 +21,13 @@ public interface UserDao {
     })
     User findById(int id);
 
-    @Select("select * from users where is_deleted = true;")
+    @Select("select * from users where is_deleted = false;")
     @ResultMap("userMap")
     List<User> findAllUsers();
+
+    @Select("select * from users where is_deleted = true;")
+    @ResultMap("userMapV2")
+    List<User> findAllDeletedUsers();
 
     @Insert("INSERT INTO users (id, name, age, city, phone_num, extra) VALUES (#{id}, #{name}, #{age}, #{city}, #{phoneNum}, #{extra})")
     @Options(keyProperty = "id", keyColumn = "id")

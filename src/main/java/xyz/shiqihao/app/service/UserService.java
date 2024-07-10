@@ -27,6 +27,10 @@ public class UserService {
         return userDao.findAllUsers().stream().map(User::translateToDto).collect(Collectors.toList());
     }
 
+    public List<UserDto> findAllDeletedUsers() {
+        return userDao.findAllDeletedUsers().stream().map(User::translateToDto).collect(Collectors.toList());
+    }
+
     private boolean checkUserForm(UserForm form) {
         return true;
     }

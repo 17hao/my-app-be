@@ -27,6 +27,11 @@ public class UserController {
         return service.findAllUsers();
     }
 
+    @GetMapping("/deleted-users")
+    public List<UserDto> getDeletedUsers() {
+        return service.findAllDeletedUsers();
+    }
+
     @PostMapping("/users")
     public UserDto addUser(@RequestBody UserForm userForm) {
         return service.insert(userForm);
