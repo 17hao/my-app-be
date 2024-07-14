@@ -4,11 +4,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.shiqihao.app.config.AppConfig;
 
 @RestController
 public class TestController {
@@ -31,5 +36,22 @@ public class TestController {
     @GetMapping("/lyj")
     public String lyj() {
         return "hello, lyj!";
+    }
+
+    @Resource
+    @Qualifier("devConfig")
+    private AppConfig devConfig;
+
+    @Resource
+    @Qualifier("prodConfig")
+    private AppConfig prodConfig;
+
+
+    @GetMapping("/config/{env}")
+    public AppConfig config(@PathVariable("env") String env) {
+        if (env.equals("prod")) {
+            return prodConfig;
+        }
+        return devConfig;
     }
 }
