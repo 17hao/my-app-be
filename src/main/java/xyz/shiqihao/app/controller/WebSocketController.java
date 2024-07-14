@@ -1,7 +1,6 @@
 package xyz.shiqihao.app.controller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.socket.TextMessage;
@@ -15,9 +14,8 @@ public class WebSocketController extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) {
-        System.out.println("receive message: " + message);
         try {
-            session.sendMessage(service.buildMessage(LocalDateTime.now().toString()));
+            session.sendMessage(service.buildResponse(message.getPayload()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
