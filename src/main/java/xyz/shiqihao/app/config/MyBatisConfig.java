@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.beans;
+package xyz.shiqihao.app.config;
 
 import java.io.Reader;
 
@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("xyz.shiqihao.app.dao")
-public class MyBatis {
+public class MyBatisConfig {
     @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         Reader reader = Resources.getResourceAsReader("mybatis.xml");

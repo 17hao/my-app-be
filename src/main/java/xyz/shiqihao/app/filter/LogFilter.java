@@ -10,14 +10,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 @Component
+@Log4j2
 public class LogFilter implements Filter {
-    private static final Logger LOGGER = LogManager.getLogger();
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
@@ -25,7 +23,7 @@ public class LogFilter implements Filter {
         if (agent.isBlank()) {
             throw new ServletException("User-Agent is blank");
         }
-        LOGGER.info(agent);
+        log.info(agent);
         chain.doFilter(request, response);
     }
 

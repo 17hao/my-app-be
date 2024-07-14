@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.beans;
+package xyz.shiqihao.app.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import xyz.shiqihao.app.service.WebSocketService;
 
 @Configuration
 @EnableWebSocket
-public class WebSocket implements WebSocketConfigurer {
+public class WebSocketConfig implements WebSocketConfigurer {
     @Autowired
     private WebSocketService service;
 
