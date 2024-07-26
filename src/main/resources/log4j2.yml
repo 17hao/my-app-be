@@ -2,35 +2,36 @@ Configuration:
   status: warn
   Properties:
     Property:
-      - name: log.level
-        value: info
       - name: log.path
-        value: ${sys:LOGDIR}
-      - name: log.pattern
-        value: "%d %p %C{1.} [%t] %m%n"
-      - name: log.file.pattern
-        value: "${log.path}/%d{yyyyMMdd}-%i.log.gz"
+        value: ${sys:LOGDIR:-./log}
   Appenders:
     Console:
       name: console
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: ${log.pattern}
+        pattern: "%highlight{%d %p %c [%t] %m%n}"
     RollingFile:
       - name: rolling_file
         ignoreExceptions: false
         fileName: ${log.path}/app.log
-        filePattern: ${log.file.pattern}
+        filePattern: ${log.path}/%d{yyyyMMdd}-%i.log.gz
         PatternLayout:
-          pattern: ${log.pattern}
+          pattern: "%d %p %c [%t] %m%n"
         Policies:
           SizeBasedTriggeringPolicy:
             size: "128 MB"
         DefaultRolloverStrategy:
           max: 100 # 最多同一文件夹下的文件数
   Loggers:
+    Logger:
+      name: xyz.shiqihao
+      level: debug
+      additivity: false # 匹配后不走 Root
+      appenderRef:
+        - ref: console
+        - ref: rolling_file
     Root:
-      level: ${log.level}
+      level: info
       AppenderRef:
         - ref: console
         - ref: rolling_file
