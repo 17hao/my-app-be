@@ -19,14 +19,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 @Component
-public final class TecentObjectStorage implements ObjectStorage {
+public final class TencentObjectStorage implements ObjectStorage {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final Properties PROPERTIES = new Properties();
 
     static {
         try {
-            PROPERTIES.load(TecentObjectStorage.class.getResourceAsStream("/tencent-auth.properties"));
+            PROPERTIES.load(TencentObjectStorage.class.getResourceAsStream("/tencent-auth.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,7 +66,7 @@ public final class TecentObjectStorage implements ObjectStorage {
     }
 
     @Override
-    public void put(String filePath, File content) {
+    public String put(String filePath, File content) {
         Credentials credentials = getCredential();
         // 1 传入获取到的临时密钥 (tmpSecretId, tmpSecretKey, sessionToken)
         BasicSessionCredentials cred = new BasicSessionCredentials(credentials.tmpSecretId, credentials.tmpSecretKey, credentials.sessionToken);
@@ -84,11 +84,13 @@ public final class TecentObjectStorage implements ObjectStorage {
         PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
         LOGGER.info("putObjectResult: {}", new Gson().toJson(putObjectResult));
         cosClient.shutdown();
+        return String.format("%s/%s", PROPERTIES.getProperty("cdn.host"), filePath);
     }
 
     public static void main(String[] args) {
         File file = new File("Dockerfile");
-        TecentObjectStorage cli = new TecentObjectStorage();
-        cli.put("2024-08-05/my-app-be/Dockerfile", file);
+        TencentObjectStorage cli = new TencentObjectStorage();
+        String url = cli.put("2024-08-12/my-app-be/Dockerfile", file);
+        System.out.println(url);
     }
 }
