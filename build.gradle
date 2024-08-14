@@ -19,25 +19,35 @@ repositories {
 }
 
 dependencies {
+    def springVersion = "5.2.5.RELEASE"
+    def springBootVersion = "2.3.1.RELEASE"
+    def jacksonVersion = "2.10.0"
     def powerMockVersion = "2.0.9"
+    def jjwtVersion = "0.12.6"
+
     annotationProcessor "org.projectlombok:lombok:1.18.12"
     implementation(
-            "org.springframework.boot:spring-boot-starter-web:2.3.1.RELEASE",
-            "org.springframework.boot:spring-boot-starter-log4j2:2.3.1.RELEASE",
-            "org.springframework:spring-jdbc:5.2.5.RELEASE",
-            "org.springframework:spring-websocket:5.2.2.RELEASE",
+            "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}",
+            "org.springframework:spring-jdbc:${springVersion}",
+            "org.springframework:spring-websocket:${springVersion}",
             "org.projectlombok:lombok:1.18.12",
             "org.mybatis:mybatis:3.5.2",
             "org.mybatis:mybatis-spring:2.0.2",
             "org.postgresql:postgresql:42.2.16",
             "mysql:mysql-connector-java:8.0.16",
-            "com.fasterxml.jackson.core:jackson-core:2.10.0",
-            "com.fasterxml.jackson.core:jackson-annotations:2.10.0",
-            "com.fasterxml.jackson.core:jackson-databind:2.10.0",
-            "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.0",
+            "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}",
+            "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}",
+            "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}",
+            "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}",
             "com.google.code.gson:gson:2.11.0",
             "com.qcloud:cos_api:5.6.225",
             "com.qcloud:cos-sts_api:3.1.0",
+            "io.jsonwebtoken:jjwt-api:${jjwtVersion}",
+    )
+    runtimeOnly(
+            "io.jsonwebtoken:jjwt-impl:${jjwtVersion}",
+            "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
     )
     testImplementation(
             "junit:junit:4.12",
