@@ -16,9 +16,9 @@ import com.tencent.cloud.CosStsClient;
 import com.tencent.cloud.Credentials;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service(value = "tencentObjectStorage")
 public final class TencentObjectStorage implements ObjectStorage {
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -26,7 +26,7 @@ public final class TencentObjectStorage implements ObjectStorage {
 
     static {
         try {
-            PROPERTIES.load(TencentObjectStorage.class.getResourceAsStream("/tencent-auth.properties"));
+            PROPERTIES.load(TencentObjectStorage.class.getResourceAsStream("/tencent-object-storage.properties"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

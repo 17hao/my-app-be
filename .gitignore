@@ -58,4 +58,4 @@ out/
 hs_err_pid*
 nohup.out
 
-tencent-auth.properties
+tencent-object-storage.properties
