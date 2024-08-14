@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -30,15 +32,30 @@ public class ImageService {
             // TODO: 异常处理
             throw new RuntimeException("file is too large");
         }
-
+        String fileName = file.getOriginalFilename();
+        Set<String> validFileExts = new HashSet<>();
+        validFileExts.add("svg");
+        validFileExts.add("jpg");
+        validFileExts.add("png");
+        validFileExts.add("jpng");
+        boolean fileExtIsValid = true;
+        for (String ext : validFileExts) {
+            if (fileName != null && !fileName.endsWith(ext)) {
+                fileExtIsValid = false;
+                break;
+            }
+        }
+        if (!fileExtIsValid) {
+            throw new RuntimeException(String.format("[upload] file extension is invalid, fileName={%s}", fileName));
+        }
         String key = String.format("/%s/%d", LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE), IDGenerator.gen());
-        LOGGER.info("upload key={}", key);
+        LOGGER.info("[upload] key={}", key);
 
         Path path = Paths.get("/var/tmp", key);
         try (OutputStream os = Files.newOutputStream(path)) {
             os.write(file.getBytes());
         } catch (IOException e) {
-            LOGGER.error("upload exception={}", e.getMessage());
+            LOGGER.error("[upload] exception={}", e.getMessage());
             throw new RuntimeException(e);
         }
 
