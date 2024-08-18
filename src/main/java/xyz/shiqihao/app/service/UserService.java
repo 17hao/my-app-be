@@ -3,7 +3,7 @@ package xyz.shiqihao.app.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import xyz.shiqihao.app.dao.UserDao;
 import xyz.shiqihao.app.dto.UserDto;
@@ -11,8 +11,8 @@ import xyz.shiqihao.app.form.UserForm;
 import xyz.shiqihao.app.model.User;
 
 @Component
+@AllArgsConstructor
 public class UserService {
-    @Autowired
     private UserDao userDao;
 
     public UserDto findById(int id) {

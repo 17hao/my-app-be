@@ -1,6 +1,6 @@
 package xyz.shiqihao.app.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
@@ -10,10 +10,10 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import xyz.shiqihao.app.controller.WebSocketController;
 import xyz.shiqihao.app.service.WebSocketService;
 
-@Configuration
 @EnableWebSocket
+@Configuration
+@AllArgsConstructor
 public class WebSocketConfig implements WebSocketConfigurer {
-    @Autowired
     private WebSocketService service;
 
     @Override
