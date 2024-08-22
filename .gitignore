@@ -59,3 +59,4 @@ hs_err_pid*
 nohup.out
 
 tencent-object-storage.properties
+jwt-key.properties
