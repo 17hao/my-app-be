@@ -39,21 +39,23 @@ public class JwtUtil {
 
     public static String of(Long userId) {
         return Jwts.builder()
-                .claims().add("userId", userId).and()
+                .claims().add("userId", String.valueOf(userId)).and()
                 .signWith(loadKey())
                 .compact();
     }
 
     public static boolean verify(String jwt, long targetUserId) {
         Claims jwtClaim = Jwts.parser().verifyWith(loadKey()).build().parseSignedClaims(jwt).getPayload();
-        long parsedUserId = (long) jwtClaim.get("userId");
+        long parsedUserId = Long.parseLong((String) jwtClaim.get("userId"));
         System.out.println(jwtClaim.get("userId"));
         return targetUserId == parsedUserId;
     }
 
     public static void main(String[] args) {
         // generateKey();
-        // System.out.println(JwtUtil.of(4242732357447163905L));
-        System.out.println(JwtUtil.verify("eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjQyNDI3MzIzNTc0NDcxNjM5MDV9.KBXF2bNRqn3QguIDOTLZx-Q6-Hxt2DiYwcV9WCKHLsE", 4242732357447163905L));
+
+        String jwt = JwtUtil.of(4242732357447163905L);
+        System.out.println(jwt);
+        System.out.println(JwtUtil.verify(jwt, 4242732357447163905L));
     }
 }
