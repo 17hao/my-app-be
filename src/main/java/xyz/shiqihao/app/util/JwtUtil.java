@@ -13,7 +13,7 @@ import io.jsonwebtoken.security.Keys;
 import xyz.shiqihao.infra.storage.TencentObjectStorage;
 
 public class JwtUtil {
-    private static Properties CONF = new Properties();
+    private static final Properties CONF = new Properties();
 
     static {
         try {
