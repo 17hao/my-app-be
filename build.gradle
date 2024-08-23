@@ -44,6 +44,8 @@ dependencies {
             "com.qcloud:cos_api:5.6.225",
             "com.qcloud:cos-sts_api:3.1.0",
             "io.jsonwebtoken:jjwt-api:${jjwtVersion}",
+            "org.roaringbitmap:RoaringBitmap:1.2.1",
+            "com.esotericsoftware:kryo:5.6.0",
     )
     runtimeOnly(
             "io.jsonwebtoken:jjwt-impl:${jjwtVersion}",
