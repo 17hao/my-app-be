@@ -29,7 +29,7 @@ public interface UserDao {
     @ResultMap("userMapV2")
     List<User> findAllDeletedUsers();
 
-    @Insert("INSERT INTO users (id, name, age, city, phone_num, extra) VALUES (#{id}, #{name}, #{age}, #{city}, #{phoneNum}, #{extra})")
+    @Insert("INSERT INTO users (id, name, age, city, phone_num) VALUES (#{id}, #{name}, #{age}, #{city}, #{phoneNum})")
     @Options(keyProperty = "id", keyColumn = "id")
     void insert(User u);
 }

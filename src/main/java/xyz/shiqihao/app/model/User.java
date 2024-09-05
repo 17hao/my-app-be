@@ -19,8 +19,6 @@ public class User {
 
     private String phoneNum;
 
-    private String extra;
-
     private boolean deleted;
 
     public UserDto translateToDto() {
