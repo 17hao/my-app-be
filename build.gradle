@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "org.springframework.boot" version "2.3.1.RELEASE"
+    id "org.springframework.boot" version "2.7.18"
     id "idea"
 }
 
@@ -19,11 +19,11 @@ repositories {
 }
 
 dependencies {
-    def springVersion = "5.2.5.RELEASE"
+    def springVersion = "5.3.31"
     def springBootVersion = "2.7.18"
     def log4j2Version = "2.23.1"
     def lombokVersion = "1.18.12"
-    def jacksonVersion = "2.10.0"
+    def jacksonVersion = "2.14.1"
     def powerMockVersion = "2.0.9"
     def jjwtVersion = "0.12.6"
     def poiVersion = "5.2.5"
@@ -56,11 +56,15 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:${jacksonVersion}"
+
     implementation "com.google.code.gson:gson:2.11.0"
+
     implementation "com.qcloud:cos_api:5.6.225"
     implementation "com.qcloud:cos-sts_api:3.1.0"
+
     implementation "org.roaringbitmap:RoaringBitmap:1.2.1"
     implementation "com.esotericsoftware:kryo:5.6.0"
+
     implementation "org.apache.poi:poi:${poiVersion}"
     implementation "org.apache.poi:poi-ooxml:${poiVersion}"
 
@@ -80,6 +84,6 @@ jar {
     }
 }
 
-bootJar {
-    mainClassName = "xyz.shiqihao.MyApplication"
+springBoot {
+    mainClass = "xyz.shiqihao.MyApplication"
 }
