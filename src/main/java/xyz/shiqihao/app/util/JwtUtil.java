@@ -10,8 +10,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.log4j.Log4j2;
 import xyz.shiqihao.infra.storage.TencentObjectStorage;
 
+@Log4j2
 public class JwtUtil {
     private static final Properties CONF = new Properties();
 
@@ -27,7 +29,7 @@ public class JwtUtil {
         // https://github.com/jwtk/jjwt?tab=readme-ov-file#secret-keys
         SecretKey secretKey = Jwts.SIG.HS256.key().build();
         String secretStr = Encoders.BASE64URL.encode(secretKey.getEncoded());
-        System.out.println(secretStr);
+        log.info(secretStr);
         return secretKey;
     }
 
@@ -47,7 +49,7 @@ public class JwtUtil {
     public static boolean verify(String jwt, long targetUserId) {
         Claims jwtClaim = Jwts.parser().verifyWith(loadKey()).build().parseSignedClaims(jwt).getPayload();
         long parsedUserId = Long.parseLong((String) jwtClaim.get("userId"));
-        System.out.println(jwtClaim.get("userId"));
+        log.info(jwtClaim.get("userId"));
         return targetUserId == parsedUserId;
     }
 
@@ -55,7 +57,7 @@ public class JwtUtil {
         // generateKey();
 
         String jwt = JwtUtil.of(4242732357447163905L);
-        System.out.println(jwt);
-        System.out.println(JwtUtil.verify(jwt, 4242732357447163905L));
+        log.info(jwt);
+        log.info(JwtUtil.verify(jwt, 4242732357447163905L));
     }
 }

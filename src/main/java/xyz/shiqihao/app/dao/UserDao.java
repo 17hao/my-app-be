@@ -26,7 +26,7 @@ public interface UserDao {
     List<User> findAllUsers();
 
     @Select("select * from users where is_deleted = true;")
-    @ResultMap("userMapV2")
+    @ResultMap("userMap")
     List<User> findAllDeletedUsers();
 
     @Insert("INSERT INTO users (id, name, age, city, phone_num) VALUES (#{id}, #{name}, #{age}, #{city}, #{phoneNum})")

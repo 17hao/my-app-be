@@ -1,0 +1,7 @@
+server:
+  port: 9998
+db:
+  my_db:
+    url: jdbc:mysql://localhost:13306/my_db
+    username: admin
+    password: 123456

@@ -1,20 +1,33 @@
 package xyz.shiqihao.app.config;
 
-import java.io.Reader;
-
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.log4j.Log4j2;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @MapperScan("xyz.shiqihao.app.dao")
+@Log4j2
 public class MyBatisConfig {
     @Bean
-    public SqlSessionFactory sqlSessionFactory() throws Exception {
-        Reader reader = Resources.getResourceAsReader("mybatis.xml");
-        return new SqlSessionFactoryBuilder().build(reader);
+    public SqlSessionFactoryBean buildSqlSessionFactoryBean(
+            @Value("${db.my_db.url}") String url,
+            @Value("${db.my_db.username}") String username,
+            @Value("${db.my_db.password}") String password
+    ) {
+        // TODO: SqlSessionFactoryBean vs SqlSessionFactory
+        log.info("MySQL configuration: url={}, username={}, password={}", url, username, password);
+
+        HikariDataSource ds = new HikariDataSource();
+        ds.setJdbcUrl(url);
+        ds.setUsername(username);
+        ds.setPassword(password);
+
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(ds);
+        return sqlSessionFactoryBean;
     }
 }
