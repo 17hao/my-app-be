@@ -40,12 +40,6 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.projectlombok:lombok:${lombokVersion}"
 
-    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
-    runtimeOnly(
-            "io.jsonwebtoken:jjwt-impl:${jjwtVersion}",
-            "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}"
-    )
-
     implementation "org.mybatis:mybatis:3.5.2"
     implementation "org.mybatis:mybatis-spring:2.0.2"
     implementation "org.postgresql:postgresql:42.2.16"
@@ -62,6 +56,10 @@ dependencies {
     implementation "com.qcloud:cos_api:5.6.225"
     implementation "com.qcloud:cos-sts_api:3.1.0"
 
+    implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
+    runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}" // or 'io.jsonwebtoken:jjwt-gson:0.12.6' for gson
+
     implementation "org.roaringbitmap:RoaringBitmap:1.2.1"
     implementation "com.esotericsoftware:kryo:5.6.0"
 
@@ -72,6 +70,8 @@ dependencies {
     testImplementation "org.mockito:mockito-core:2.28.2"
     testImplementation "org.powermock:powermock-module-junit4:${powerMockVersion}"
     testImplementation "org.powermock:powermock-api-mockito2:${powerMockVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 }
 
 jar {
