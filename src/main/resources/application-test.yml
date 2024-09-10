@@ -6,3 +6,8 @@ db:
     url: jdbc:mysql://localhost:13306/my_db
     username: admin
     password: 123456
+
+redis:
+  host: localhost
+  port: 16379
+  password: 123456
