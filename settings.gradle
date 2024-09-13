@@ -7,3 +7,5 @@ pluginManagement {
 }
 
 rootProject.name = 'my-app-be'
+include "my-app-be-protocol"
+include "my-app-be-application"
