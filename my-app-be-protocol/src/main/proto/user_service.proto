@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "xyz.shiqihao.grpc";
+option java_outer_classname = "UserServiceProto";
+option objc_class_prefix = "HLW";
+option java_generic_services = true;
+
+package user;
+
+service UserService {
+  rpc QueryUser (QueryUserRequest) returns (QueryUserResponse) {}
+}
+
+message QueryUserRequest {
+  int64 id = 1;
+}
+
+message QueryUserResponse {
+  int64 id = 1;
+  string name = 2;
+}

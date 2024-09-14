@@ -1,6 +1,10 @@
 server:
   port: 9998
 
+grpc:
+  server:
+    port: 9090
+
 db:
   my_db:
     url: jdbc:mysql://localhost:13306/my_db

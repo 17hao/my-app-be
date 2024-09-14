@@ -19,7 +19,7 @@ public interface UserDao {
     @Results(id = "userMap", value = {
             @Result(property = "deleted", column = "is_deleted")
     })
-    User findById(int id);
+    User findById(long id);
 
     @Select("select * from users where is_deleted = false;")
     @ResultMap("userMap")
