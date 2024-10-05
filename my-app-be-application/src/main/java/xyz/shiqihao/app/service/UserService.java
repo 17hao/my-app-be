@@ -27,20 +27,16 @@ public class UserService {
         return userDao.findAllUsers().stream().map(User::translateToDto).collect(Collectors.toList());
     }
 
-    public List<UserDto> findAllDeletedUsers() {
-        return userDao.findAllDeletedUsers().stream().map(User::translateToDto).collect(Collectors.toList());
-    }
-
     private boolean checkUserForm(UserForm form) {
         return true;
     }
 
-    public UserDto insert(UserForm form) {
+    public long insert(UserForm form) {
         if (!checkUserForm(form)) {
-            return new UserDto();
+            throw new RuntimeException("form is invalid");
         }
         User user = form.buildUser();
         userDao.insert(user);
-        return user.translateToDto();
+        return user.getId();
     }
 }
