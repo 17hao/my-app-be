@@ -64,5 +64,7 @@ dependencies {
         exclude group: "org.springframework.boot", module: "spring-boot-starter"
     }
 
+    implementation "org.aspectj:aspectjweaver:1.9.22"
+
     api project(":my-app-be-protocol")
 }

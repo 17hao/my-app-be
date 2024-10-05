@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.filter;
+package xyz.shiqihao.app.common;
 
 import java.io.IOException;
 
