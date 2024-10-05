@@ -2,10 +2,6 @@
 
 ROOT=$(pwd)
 
-if [ -d "${ROOT}"/build/libs ]; then
-  rm -rf "${ROOT}"/build
-fi
+bash "${ROOT}"/gradlew clean bootJar
 
-bash "${ROOT}"/gradlew build
-
-java -DLOGDIR="${ROOT}/log" -jar "${ROOT}"/build/libs/my-app-be.jar
+java -DLOGDIR="${ROOT}/log" -Dspring.profiles.active=prod -jar "${ROOT}"/build/libs/my-app-be.jar
