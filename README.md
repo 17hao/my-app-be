@@ -9,8 +9,8 @@ bash bin/start.sh
 How to build and push docker image?
 
 ```bash
- docker build -t 17hao/my-app-be:latest .
- docker push 17hao/my-app-be:latest
+bash bin/build.sh
+docker push 17hao/my-app-be:latest
 ```
 
 How to start server with docker?
