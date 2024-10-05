@@ -15,7 +15,7 @@ import xyz.shiqihao.app.model.User;
 public class UserService {
     private UserDao userDao;
 
-    public UserDto findById(int id) {
+    public UserDto findById(long id) {
         User user = userDao.findById(id);
         if (user == null) {
             return null;
