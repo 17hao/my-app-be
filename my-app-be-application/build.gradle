@@ -4,26 +4,23 @@ plugins {
 }
 
 dependencies {
-    def springVersion = "5.3.31"
     def springBootVersion = "2.7.18"
-    def log4j2Version = "2.23.1"
-    def lombokVersion = "1.18.12"
-    def jacksonVersion = "2.14.1"
-    def powerMockVersion = "2.0.9"
-    def jjwtVersion = "0.12.6"
-    def poiVersion = "5.2.5"
-
+    def springVersion = "5.3.31"
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude group: "org.springframework.boot", module: "spring-boot-starter-logging"
     }
     implementation "org.springframework:spring-jdbc:${springVersion}"
     implementation "org.springframework:spring-websocket:${springVersion}"
 
+    def log4j2Version = "2.23.1"
     implementation "org.apache.logging.log4j:log4j-slf4j2-impl:${log4j2Version}"
     implementation "org.slf4j:jul-to-slf4j:2.0.13"
 
+    def lombokVersion = "1.18.12"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     implementation "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     implementation "org.mybatis:mybatis:3.5.2"
     implementation "org.mybatis:mybatis-spring:2.0.2"
@@ -31,6 +28,7 @@ dependencies {
     implementation "com.mysql:mysql-connector-j:8.4.0"
     implementation "com.zaxxer:HikariCP:5.1.0"
 
+    def jacksonVersion = "2.14.1"
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
@@ -41,6 +39,7 @@ dependencies {
     implementation "com.qcloud:cos_api:5.6.225"
     implementation "com.qcloud:cos-sts_api:3.1.0"
 
+    def jjwtVersion = "0.12.6"
     implementation "io.jsonwebtoken:jjwt-api:${jjwtVersion}"
     runtimeOnly "io.jsonwebtoken:jjwt-impl:${jjwtVersion}"
     runtimeOnly "io.jsonwebtoken:jjwt-jackson:${jjwtVersion}" // or 'io.jsonwebtoken:jjwt-gson:0.12.6' for gson
@@ -48,17 +47,17 @@ dependencies {
     implementation "org.roaringbitmap:RoaringBitmap:1.2.1"
     implementation "com.esotericsoftware:kryo:5.6.0"
 
+    def poiVersion = "5.2.5"
     implementation "org.apache.poi:poi:${poiVersion}"
     implementation "org.apache.poi:poi-ooxml:${poiVersion}"
 
     implementation "redis.clients:jedis:5.1.5"
 
+    def powerMockVersion = "2.0.9"
     testImplementation "junit:junit:4.12"
     testImplementation "org.mockito:mockito-core:2.28.2"
     testImplementation "org.powermock:powermock-module-junit4:${powerMockVersion}"
     testImplementation "org.powermock:powermock-api-mockito2:${powerMockVersion}"
-    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
-    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     implementation("net.devh:grpc-spring-boot-starter:2.13.1.RELEASE") {
         exclude group: "org.springframework.boot", module: "spring-boot-starter"
