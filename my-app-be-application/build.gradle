@@ -27,6 +27,8 @@ dependencies {
     implementation "org.postgresql:postgresql:42.2.16"
     implementation "com.mysql:mysql-connector-j:8.4.0"
     implementation "com.zaxxer:HikariCP:5.1.0"
+    implementation "org.mybatis.dynamic-sql:mybatis-dynamic-sql:1.5.2"
+    implementation "org.mybatis.generator:mybatis-generator-core:1.4.2"
 
     def jacksonVersion = "2.14.1"
     implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
@@ -64,6 +66,8 @@ dependencies {
     }
 
     implementation "org.aspectj:aspectjweaver:1.9.22"
+
+    implementation "jakarta.annotation:jakarta.annotation-api:2.1.1"
 
     api project(":my-app-be-protocol")
 }
