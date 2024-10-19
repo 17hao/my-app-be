@@ -6,8 +6,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.shiqihao.app.controller.common.ControllerTemplate;
-import xyz.shiqihao.app.controller.common.Response;
+import xyz.shiqihao.common.ControllerTemplate;
+import xyz.shiqihao.common.Response;
 import xyz.shiqihao.app.form.OrderForm;
 import xyz.shiqihao.app.service.OrderService;
 

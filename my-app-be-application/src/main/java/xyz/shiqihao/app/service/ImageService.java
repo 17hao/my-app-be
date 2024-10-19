@@ -14,8 +14,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import xyz.shiqihao.idgen.IDGenerator;
-import xyz.shiqihao.infra.storage.ObjectStorage;
+import xyz.shiqihao.common.IDGenerator;
+import xyz.shiqihao.common.storage.ObjectStorage;
 
 @Component
 @Log4j2

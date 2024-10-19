@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.util;
+package xyz.shiqihao.common.utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,7 +13,7 @@ import com.esotericsoftware.kryo.io.KryoDataInput;
 import com.esotericsoftware.kryo.io.KryoDataOutput;
 import com.esotericsoftware.kryo.io.Output;
 import org.roaringbitmap.longlong.Roaring64Bitmap;
-import xyz.shiqihao.idgen.IDGenerator;
+import xyz.shiqihao.common.IDGenerator;
 
 public class BitmapUtil {
     public static String addAll(long[] ids) {

@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.controller.common;
+package xyz.shiqihao.common;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package xyz.shiqihao.infra.dal;
+package xyz.shiqihao.app.infra.dal;
 
 import jakarta.annotation.Generated;
 import java.math.BigDecimal;

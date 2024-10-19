@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.config;
+package xyz.shiqihao.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

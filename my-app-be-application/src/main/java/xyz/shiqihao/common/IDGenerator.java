@@ -1,4 +1,4 @@
-package xyz.shiqihao.idgen;
+package xyz.shiqihao.common;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;

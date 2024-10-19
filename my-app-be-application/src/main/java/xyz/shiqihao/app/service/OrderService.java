@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import org.mybatis.dynamic.sql.where.condition.IsEqualTo;
 import org.springframework.stereotype.Component;
-import xyz.shiqihao.idgen.IDGenerator;
-import xyz.shiqihao.infra.dal.OrderDO;
-import xyz.shiqihao.infra.dal.OrderMapper;
+import xyz.shiqihao.common.IDGenerator;
+import xyz.shiqihao.app.infra.dal.OrderDO;
+import xyz.shiqihao.app.infra.dal.OrderMapper;
 
-import static xyz.shiqihao.infra.dal.OrderDODynamicSqlSupport.id;
+import static xyz.shiqihao.app.infra.dal.OrderDODynamicSqlSupport.id;
 
 @Component
 @AllArgsConstructor

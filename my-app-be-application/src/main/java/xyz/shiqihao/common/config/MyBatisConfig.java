@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.config;
+package xyz.shiqihao.common.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.log4j.Log4j2;

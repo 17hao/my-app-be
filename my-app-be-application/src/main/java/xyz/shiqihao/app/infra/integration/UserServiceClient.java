@@ -1,4 +1,4 @@
-package xyz.shiqihao.infra.integration;
+package xyz.shiqihao.app.infra.integration;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

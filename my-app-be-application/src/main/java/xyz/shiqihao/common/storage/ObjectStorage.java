@@ -1,4 +1,4 @@
-package xyz.shiqihao.infra.storage;
+package xyz.shiqihao.common.storage;
 
 import java.io.File;
 

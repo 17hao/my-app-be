@@ -1,4 +1,4 @@
-package xyz.shiqihao;
+package xyz.shiqihao.common;
 
 import java.io.File;
 import java.util.ArrayList;

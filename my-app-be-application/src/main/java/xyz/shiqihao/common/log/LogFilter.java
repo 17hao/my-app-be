@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.common;
+package xyz.shiqihao.common.log;
 
 import java.io.IOException;
 

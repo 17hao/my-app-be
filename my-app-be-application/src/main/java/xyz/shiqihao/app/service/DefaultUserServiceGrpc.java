@@ -1,4 +1,4 @@
-package xyz.shiqihao.service;
+package xyz.shiqihao.app.service;
 
 import io.grpc.stub.StreamObserver;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import xyz.shiqihao.grpc.UserServiceProto.QueryUserResponse;
 
 @GrpcService
 @AllArgsConstructor
-public class UserServiceGrpcImpl extends UserServiceGrpc.UserServiceImplBase {
+public class DefaultUserServiceGrpc extends UserServiceGrpc.UserServiceImplBase {
     private final UserDao userDao;
 
     @Override

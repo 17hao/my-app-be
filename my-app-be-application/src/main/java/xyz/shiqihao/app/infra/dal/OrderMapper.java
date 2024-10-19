@@ -1,7 +1,7 @@
-package xyz.shiqihao.infra.dal;
+package xyz.shiqihao.app.infra.dal;
 
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
-import static xyz.shiqihao.infra.dal.OrderDODynamicSqlSupport.*;
+import static xyz.shiqihao.app.infra.dal.OrderDODynamicSqlSupport.*;
 
 import jakarta.annotation.Generated;
 import java.util.Collection;
@@ -27,7 +27,6 @@ import org.mybatis.dynamic.sql.util.mybatis3.CommonDeleteMapper;
 import org.mybatis.dynamic.sql.util.mybatis3.CommonInsertMapper;
 import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper;
 import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
-import xyz.shiqihao.infra.dal.OrderDO;
 
 @Mapper
 public interface OrderMapper extends CommonCountMapper, CommonDeleteMapper, CommonInsertMapper<OrderDO>, CommonUpdateMapper {

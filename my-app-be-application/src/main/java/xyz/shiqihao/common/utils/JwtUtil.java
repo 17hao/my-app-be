@@ -1,7 +1,4 @@
-package xyz.shiqihao.app.util;
-
-import java.io.IOException;
-import java.util.Properties;
+package xyz.shiqihao.common.utils;
 
 import javax.crypto.SecretKey;
 
@@ -11,19 +8,12 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.log4j.Log4j2;
-import xyz.shiqihao.infra.storage.TencentObjectStorage;
+import org.springframework.beans.factory.annotation.Value;
 
 @Log4j2
 public class JwtUtil {
-    private static final Properties CONF = new Properties();
-
-    static {
-        try {
-            CONF.load(TencentObjectStorage.class.getResourceAsStream("/jwt-key.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    @Value("${jwtSecretKey}")
+    private static String secretKey;
 
     private static SecretKey generateKey() {
         // https://github.com/jwtk/jjwt?tab=readme-ov-file#secret-keys
@@ -35,8 +25,7 @@ public class JwtUtil {
 
     private static SecretKey loadKey() {
         // https://github.com/jwtk/jjwt?tab=readme-ov-file#secretkey-formats
-        String secretStr = CONF.getProperty("secretStr");
-        return Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretStr));
+        return Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));
     }
 
     public static String of(Long userId) {

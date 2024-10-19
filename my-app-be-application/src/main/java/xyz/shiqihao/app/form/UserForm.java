@@ -2,7 +2,7 @@ package xyz.shiqihao.app.form;
 
 import lombok.Data;
 import xyz.shiqihao.app.model.User;
-import xyz.shiqihao.idgen.IDGenerator;
+import xyz.shiqihao.common.IDGenerator;
 
 @Data
 public class UserForm {

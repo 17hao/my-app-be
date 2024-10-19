@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.controller.common;
+package xyz.shiqihao.common;
 
 public abstract class ControllerTemplate<T> {
     public abstract T biz();

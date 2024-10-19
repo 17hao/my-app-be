@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.common;
+package xyz.shiqihao.common.log;
 
 import com.google.gson.Gson;
 import lombok.extern.log4j.Log4j2;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Log4j2
 public class LogAspect {
-    @Pointcut("execution(public * xyz.shiqihao.app.controller.*.*(..))")
+    @Pointcut("execution(public * xyz.shiqihao.*.controller.*.*(..))")
     private void controller() {
     }
 

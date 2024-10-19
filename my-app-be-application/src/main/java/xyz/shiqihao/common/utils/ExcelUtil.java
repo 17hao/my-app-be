@@ -1,4 +1,4 @@
-package xyz.shiqihao.app.util;
+package xyz.shiqihao.common.utils;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
