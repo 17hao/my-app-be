@@ -11,7 +11,16 @@ db:
     username: admin
     password: 123456
 
+tos:
+  secretId: mock
+  secretKey: mock
+  bucket: mock
+  region: mock
+  cdnHost: obj-storage-1304785445.shiqihao.xyz
+
 redis:
   host: localhost
   port: 16379
   password: 123456
+
+jwtSecretKey: mock
