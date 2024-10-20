@@ -21,7 +21,6 @@ public class LogFilter implements Filter {
         RequestWrapper httpReq = new RequestWrapper((HttpServletRequest) servletRequest);
         log.info("method={}, remoteAddr={}, requestUri={}, requestBody={}",
                 httpReq.getMethod(), httpReq.getRemoteAddr(), httpReq.getRequestURI(), httpReq.getRequestBody());
-        log.info(httpReq.getHeader("Origin"));
         chain.doFilter(httpReq, servletResponse);
     }
 
