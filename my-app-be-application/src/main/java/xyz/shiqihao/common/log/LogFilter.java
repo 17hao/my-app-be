@@ -17,14 +17,22 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class LogFilter implements Filter {
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        String agent = req.getHeader("User-Agent");
-        if (agent.isBlank()) {
-            throw new ServletException("User-Agent is blank");
-        }
-        log.info(agent);
-        chain.doFilter(request, response);
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpReq = (HttpServletRequest) servletRequest;
+        log.info("method={}, remoteAddr={}, requestUri={}, requestBody={}",
+                httpReq.getMethod(), httpReq.getRemoteAddr(), httpReq.getRequestURI(), getBody(httpReq));
+        log.info(httpReq.getHeader("Origin"));
+        chain.doFilter(servletRequest, servletResponse);
+    }
+
+    private String getBody(HttpServletRequest request) {
+        return "";
+        // try {
+        //     return new String(request.getInputStream().readAllBytes());
+        // } catch (IOException e) {
+        //     log.error(e);
+        // }
+        // return "";
     }
 
     @Override

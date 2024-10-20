@@ -17,15 +17,15 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="xyz.shiqihao.account.repo.model" targetProject="my-app-be-application/src/main/java">
+        <javaModelGenerator targetPackage="" targetProject="my-app-be-application/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <javaClientGenerator targetPackage="xyz.shiqihao.account.repo.dao" targetProject="my-app-be-application/src/main/java">
+        <javaClientGenerator targetPackage="" targetProject="my-app-be-application/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="account" domainObjectName="AccountDO" mapperName="AccountDAO"/>
+        <table tableName="xxx" domainObjectName="xxxDO" mapperName="xxxDAO"/>
     </context>
 </generatorConfiguration>

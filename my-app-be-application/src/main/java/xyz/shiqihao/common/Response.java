@@ -1,15 +1,16 @@
 package xyz.shiqihao.common;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Response<T> {
     private String code;
     private String message;
     private T data;
-
-    public Response() {
-        this.code = "0";
-        this.message = "";
-    }
 }

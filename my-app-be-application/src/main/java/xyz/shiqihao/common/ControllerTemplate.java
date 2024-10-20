@@ -8,6 +8,8 @@ public abstract class ControllerTemplate<T> {
         try {
             T t = biz();
             res.setData(t);
+            res.setCode("0");
+            res.setMessage("ok");
         } catch (Exception e) {
             res.setCode("1");
             res.setMessage(e.getMessage());
