@@ -1,5 +1,7 @@
 package xyz.shiqihao.account.service;
 
+import java.util.List;
+
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import lombok.AllArgsConstructor;
 import org.mybatis.dynamic.sql.where.condition.IsEqualTo;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Component;
 import xyz.shiqihao.account.repo.dao.AccountDAO;
 import xyz.shiqihao.account.repo.model.AccountDO;
 import xyz.shiqihao.common.IDGenerator;
+import xyz.shiqihao.common.exception.BizException;
 
 import static xyz.shiqihao.account.repo.dao.AccountDODynamicSqlSupport.id;
 import static xyz.shiqihao.account.repo.dao.AccountDODynamicSqlSupport.name;
@@ -32,10 +35,15 @@ public class AccountService {
         return "false";
     }
 
-    public long register(String name, String password) {
+    public long register(String accountName, String password) {
+        List<AccountDO> accountDOList = accountDAO.select(c -> c.where(name, IsEqualTo.of(accountName)));
+        if (accountDOList.size() > 0) {
+            throw new BizException("RESOURCE_EXISTS", "account already exists");
+        }
+
         AccountDO accountDO = new AccountDO();
         accountDO.setId(IDGenerator.gen());
-        accountDO.setName(name);
+        accountDO.setName(accountName);
 
         // SecureRandom secureRandom = new SecureRandom();
         // final int saltLen = 16;
