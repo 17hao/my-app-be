@@ -16,14 +16,19 @@ public class MybatisGeneratorApp {
         try {
             List<String> warnings = new ArrayList<>();
             boolean overwrite = true;
-            File configFile = new File(MybatisGeneratorApp.class.getClassLoader().getResource("generatorConfig.xml").getFile());
-            ConfigurationParser cp = new ConfigurationParser(warnings);
-            Configuration config = cp.parseConfiguration(configFile);
-            DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-            MyBatisGenerator generator = new MyBatisGenerator(config, callback, warnings);
-            generator.generate(null);
-            for (String warning : warnings) {
-                log.warn(warning);
+            String[] tables = {"order_item", "order_summary"};
+            for (String table : tables) {
+                String resourceName = String.format("mybatis-generator/%s.xml", table);
+                String fileName = MybatisGeneratorApp.class.getClassLoader().getResource(resourceName).getFile();
+                File configFile = new File(fileName);
+                ConfigurationParser cp = new ConfigurationParser(warnings);
+                Configuration config = cp.parseConfiguration(configFile);
+                DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+                MyBatisGenerator generator = new MyBatisGenerator(config, callback, warnings);
+                generator.generate(null);
+                for (String warning : warnings) {
+                    log.warn(warning);
+                }
             }
         } catch (Exception e) {
             log.error(e);
