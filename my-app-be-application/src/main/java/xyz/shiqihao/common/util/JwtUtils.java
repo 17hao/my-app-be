@@ -1,4 +1,4 @@
-package xyz.shiqihao.common.utils;
+package xyz.shiqihao.common.util;
 
 import javax.crypto.SecretKey;
 
@@ -11,7 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 
 @Log4j2
-public class JwtUtil {
+public class JwtUtils {
     @Value("${jwtSecretKey}")
     private static String secretKey;
 
@@ -45,8 +45,8 @@ public class JwtUtil {
     public static void main(String[] args) {
         // generateKey();
 
-        String jwt = JwtUtil.of(4242732357447163905L);
+        String jwt = JwtUtils.of(4242732357447163905L);
         log.info(jwt);
-        log.info(JwtUtil.verify(jwt, 4242732357447163905L));
+        log.info(JwtUtils.verify(jwt, 4242732357447163905L));
     }
 }

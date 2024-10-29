@@ -9,6 +9,7 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import xyz.shiqihao.common.util.AssertUtils;
 
 @Log4j2
 public class MybatisGeneratorApp {
@@ -19,7 +20,7 @@ public class MybatisGeneratorApp {
             String[] tables = {"order_item", "order_summary"};
             for (String table : tables) {
                 String resourceName = String.format("mybatis-generator/%s.xml", table);
-                String fileName = MybatisGeneratorApp.class.getClassLoader().getResource(resourceName).getFile();
+                String fileName = AssertUtils.isNonNull(MybatisGeneratorApp.class.getClassLoader().getResource(resourceName)).getFile();
                 File configFile = new File(fileName);
                 ConfigurationParser cp = new ConfigurationParser(warnings);
                 Configuration config = cp.parseConfiguration(configFile);

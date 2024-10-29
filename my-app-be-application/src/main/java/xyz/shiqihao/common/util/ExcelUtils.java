@@ -1,4 +1,4 @@
-package xyz.shiqihao.common.utils;
+package xyz.shiqihao.common.util;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import xyz.shiqihao.app.model.User;
 
 @Log4j2
-public class ExcelUtil {
+public class ExcelUtils {
     public static void write(String fileName, List<User> users) {
         final String localFilePath = "tmp/" + fileName + ".xlsx";
         try (Workbook wb = new XSSFWorkbook(); FileOutputStream fos = new FileOutputStream(localFilePath)) {
@@ -50,6 +50,6 @@ public class ExcelUtil {
         User u1 = new User(1L);
         u1.setName("u1");
         users.add(u1);
-        ExcelUtil.write("2024-09-05", users);
+        ExcelUtils.write("2024-09-05", users);
     }
 }

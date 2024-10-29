@@ -1,4 +1,4 @@
-package xyz.shiqihao.common.utils;
+package xyz.shiqihao.common.util;
 
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -6,7 +6,7 @@ import java.util.Base64;
 import at.favre.lib.bytes.Bytes;
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
-public class BcryptUtil {
+public class BcryptUtils {
     public static String hash(String password) {
         // return BCrypt.withDefaults().hashToString(12, input.toCharArray());
         SecureRandom secureRandom = new SecureRandom();
