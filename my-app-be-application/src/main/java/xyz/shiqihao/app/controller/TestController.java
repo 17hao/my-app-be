@@ -1,6 +1,8 @@
 package xyz.shiqihao.app.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,13 +13,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import redis.clients.jedis.JedisPooled;
 import xyz.shiqihao.app.config.AppConfig;
+import xyz.shiqihao.common.IDGenerator;
+import xyz.shiqihao.eshop.repo.dao.OrderItemDAO;
+import xyz.shiqihao.eshop.repo.dao.OrderSummaryDAO;
+import xyz.shiqihao.eshop.repo.model.OrderItemDO;
+import xyz.shiqihao.eshop.repo.model.OrderSummaryDO;
 
 @RestController
 @AllArgsConstructor
@@ -74,5 +83,39 @@ public class TestController {
         Map<String, String> res = new HashMap<>();
         res.put(key, redisClient.get(key));
         return res;
+    }
+
+    private final TransactionTemplate tx;
+
+    private final OrderSummaryDAO orderSummaryDAO;
+
+    private final OrderItemDAO orderItemDAO;
+
+    @PostMapping("/tx/v1")
+    public String txV1(@RequestParam Map<String, String> requestBody) {
+        OrderSummaryDO orderSummaryDO = new OrderSummaryDO();
+        orderSummaryDO.setId(IDGenerator.gen());
+        orderSummaryDO.setCreator(1L);
+        orderSummaryDO.setUpdater(1L);
+        orderSummaryDO.setCreateTime(LocalDateTime.now());
+        orderSummaryDO.setUpdateTime(LocalDateTime.now());
+        orderSummaryDO.setUpdater(1L);
+        orderSummaryDO.setDeleted(false);
+        orderSummaryDO.setAmount(BigDecimal.valueOf(1.5));
+
+        OrderItemDO orderItemDO = new OrderItemDO();
+        orderItemDO.setId(IDGenerator.gen());
+        orderItemDO.setOrderSummaryId(orderSummaryDO.getId());
+
+        tx.execute(status -> {
+            orderSummaryDAO.insert(orderSummaryDO);
+            orderItemDAO.insert(orderItemDO);
+
+            status.isRollbackOnly();
+
+            return null;
+        });
+
+        return "";
     }
 }
