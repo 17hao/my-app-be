@@ -29,118 +29,118 @@ import xyz.shiqihao.account.repo.model.AccountDO;
 
 @Mapper
 public interface AccountDAO extends CommonCountMapper, CommonInsertMapper<AccountDO>, CommonUpdateMapper {
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.638231+08:00", comments="Source Table: account")
-    BasicColumn[] selectList = BasicColumn.columnList(id, name, passwordHash, deleted);
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.498734+08:00", comments="Source Table: account")
+    BasicColumn[] selectList = BasicColumn.columnList(id, name, passwordHash, isDeleted);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.633976+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.494388+08:00", comments="Source Table: account")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @Results(id="AccountDOResult", value = {
         @Result(column="id", property="id", jdbcType=JdbcType.BIGINT, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
         @Result(column="password_hash", property="passwordHash", jdbcType=JdbcType.VARCHAR),
-        @Result(column="deleted", property="deleted", jdbcType=JdbcType.BIT)
+        @Result(column="is_deleted", property="isDeleted", jdbcType=JdbcType.BIT)
     })
     List<AccountDO> selectMany(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.63494+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.495313+08:00", comments="Source Table: account")
     @SelectProvider(type=SqlProviderAdapter.class, method="select")
     @ResultMap("AccountDOResult")
     Optional<AccountDO> selectOne(SelectStatementProvider selectStatement);
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.635175+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.495551+08:00", comments="Source Table: account")
     default long count(CountDSLCompleter completer) {
         return MyBatis3Utils.countFrom(this::count, accountDO, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.636003+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.496377+08:00", comments="Source Table: account")
     default int insert(AccountDO row) {
         return MyBatis3Utils.insert(this::insert, row, accountDO, c ->
             c.map(id).toProperty("id")
             .map(name).toProperty("name")
             .map(passwordHash).toProperty("passwordHash")
-            .map(deleted).toProperty("deleted")
+            .map(isDeleted).toProperty("isDeleted")
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.637113+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.49759+08:00", comments="Source Table: account")
     default int insertMultiple(Collection<AccountDO> records) {
         return MyBatis3Utils.insertMultiple(this::insertMultiple, records, accountDO, c ->
             c.map(id).toProperty("id")
             .map(name).toProperty("name")
             .map(passwordHash).toProperty("passwordHash")
-            .map(deleted).toProperty("deleted")
+            .map(isDeleted).toProperty("isDeleted")
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.637573+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.498058+08:00", comments="Source Table: account")
     default int insertSelective(AccountDO row) {
         return MyBatis3Utils.insert(this::insert, row, accountDO, c ->
             c.map(id).toPropertyWhenPresent("id", row::getId)
             .map(name).toPropertyWhenPresent("name", row::getName)
             .map(passwordHash).toPropertyWhenPresent("passwordHash", row::getPasswordHash)
-            .map(deleted).toPropertyWhenPresent("deleted", row::getDeleted)
+            .map(isDeleted).toPropertyWhenPresent("isDeleted", row::getIsDeleted)
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.638656+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.499166+08:00", comments="Source Table: account")
     default Optional<AccountDO> selectOne(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectOne(this::selectOne, selectList, accountDO, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.638885+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.499393+08:00", comments="Source Table: account")
     default List<AccountDO> select(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectList(this::selectMany, selectList, accountDO, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.639109+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.499616+08:00", comments="Source Table: account")
     default List<AccountDO> selectDistinct(SelectDSLCompleter completer) {
         return MyBatis3Utils.selectDistinct(this::selectMany, selectList, accountDO, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.639353+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.499916+08:00", comments="Source Table: account")
     default Optional<AccountDO> selectByPrimaryKey(Long id_) {
         return selectOne(c ->
             c.where(id, isEqualTo(id_))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.639593+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.500194+08:00", comments="Source Table: account")
     default int update(UpdateDSLCompleter completer) {
         return MyBatis3Utils.update(this::update, accountDO, completer);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.639861+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.500477+08:00", comments="Source Table: account")
     static UpdateDSL<UpdateModel> updateAllColumns(AccountDO row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(id).equalTo(row::getId)
                 .set(name).equalTo(row::getName)
                 .set(passwordHash).equalTo(row::getPasswordHash)
-                .set(deleted).equalTo(row::getDeleted);
+                .set(isDeleted).equalTo(row::getIsDeleted);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.64019+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.500776+08:00", comments="Source Table: account")
     static UpdateDSL<UpdateModel> updateSelectiveColumns(AccountDO row, UpdateDSL<UpdateModel> dsl) {
         return dsl.set(id).equalToWhenPresent(row::getId)
                 .set(name).equalToWhenPresent(row::getName)
                 .set(passwordHash).equalToWhenPresent(row::getPasswordHash)
-                .set(deleted).equalToWhenPresent(row::getDeleted);
+                .set(isDeleted).equalToWhenPresent(row::getIsDeleted);
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.640622+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.501254+08:00", comments="Source Table: account")
     default int updateByPrimaryKey(AccountDO row) {
         return update(c ->
             c.set(name).equalTo(row::getName)
             .set(passwordHash).equalTo(row::getPasswordHash)
-            .set(deleted).equalTo(row::getDeleted)
+            .set(isDeleted).equalTo(row::getIsDeleted)
             .where(id, isEqualTo(row::getId))
         );
     }
 
-    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-10-19T20:12:15.640931+08:00", comments="Source Table: account")
+    @Generated(value="org.mybatis.generator.api.MyBatisGenerator", date="2024-12-25T21:19:46.501596+08:00", comments="Source Table: account")
     default int updateByPrimaryKeySelective(AccountDO row) {
         return update(c ->
             c.set(name).equalToWhenPresent(row::getName)
             .set(passwordHash).equalToWhenPresent(row::getPasswordHash)
-            .set(deleted).equalToWhenPresent(row::getDeleted)
+            .set(isDeleted).equalToWhenPresent(row::getIsDeleted)
             .where(id, isEqualTo(row::getId))
         );
     }

@@ -1,7 +1,9 @@
 package xyz.shiqihao.common;
 
+import lombok.extern.log4j.Log4j2;
 import xyz.shiqihao.common.exception.BizException;
 
+@Log4j2
 public abstract class ControllerTemplate<T> {
     public abstract T biz();
 
@@ -13,11 +15,13 @@ public abstract class ControllerTemplate<T> {
             res.setCode("0");
             res.setMessage("ok");
         } catch (BizException e) {
+            log.error("BizException errCode={} errMessage={}", e.getErrCode(), e.getErrMessage());
             res.setCode(e.getErrCode());
-            res.setMessage(e.getErrMessage());
+            res.setMessage("biz error");
         } catch (Exception e) {
+            log.error("Exception errMessage={}", e.getMessage());
             res.setCode("COMMON_ERR_CODE");
-            res.setMessage(e.getMessage());
+            res.setMessage("system error");
         }
         return res;
     }
