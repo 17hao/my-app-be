@@ -1,5 +1,8 @@
 package xyz.shiqihao.common;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import lombok.extern.log4j.Log4j2;
 import xyz.shiqihao.common.exception.BizException;
 
@@ -15,14 +18,20 @@ public abstract class ControllerTemplate<T> {
             res.setCode("0");
             res.setMessage("ok");
         } catch (BizException e) {
-            log.error("BizException errCode={} errMessage={}", e.getErrCode(), e.getErrMessage());
+            log.error("BizException errCode={} errMessage={} stackTrace={}", e.getErrCode(), e.getErrMessage(), serializeStackTrace(e));
             res.setCode(e.getErrCode());
-            res.setMessage("biz error");
+            res.setMessage(e.getErrMessage());
         } catch (Exception e) {
-            log.error("Exception errMessage={}", e.getMessage());
+            log.error("Exception errMessage={} stackTrace={}", e.getMessage(), serializeStackTrace(e));
             res.setCode("COMMON_ERR_CODE");
             res.setMessage("system error");
         }
         return res;
+    }
+
+    private String serializeStackTrace(Exception e) {
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw));
+        return sw.toString();
     }
 }
