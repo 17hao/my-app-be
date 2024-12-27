@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import lombok.extern.log4j.Log4j2;
+import xyz.shiqihao.common.exception.AccountException;
 import xyz.shiqihao.common.exception.BizException;
 
 @Log4j2
@@ -17,6 +18,10 @@ public abstract class ControllerTemplate<T> {
             res.setData(t);
             res.setCode("0");
             res.setMessage("ok");
+        } catch (AccountException e) {
+            log.error("AccountException errMessage={}", e.getErrMessage());
+            res.setCode("INVALID_ARGS");
+            res.setMessage("Login failed");
         } catch (BizException e) {
             log.error("BizException errCode={} errMessage={} stackTrace={}", e.getErrCode(), e.getErrMessage(), serializeStackTrace(e));
             res.setCode(e.getErrCode());
