@@ -12,6 +12,7 @@ import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,13 @@ import xyz.shiqihao.eshop.repo.model.OrderSummaryDO;
 
 @RestController
 @AllArgsConstructor
+@Log4j2
 public class TestController {
+    @PostMapping("/xss-attack")
+    public void xssAttack(@RequestParam String jwt) {
+        log.info("jwt={}", jwt);
+    }
+
     @Data
     @AllArgsConstructor
     @NoArgsConstructor

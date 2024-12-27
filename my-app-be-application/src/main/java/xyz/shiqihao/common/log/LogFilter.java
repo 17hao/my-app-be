@@ -8,8 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -22,9 +25,18 @@ public class LogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         RequestWrapper httpReq = new RequestWrapper((HttpServletRequest) servletRequest);
-        log.info("method={}, remoteAddr={}, requestUri={}, requestBody={}",
-                httpReq.getMethod(), httpReq.getRemoteAddr(), httpReq.getRequestURI(), httpReq.getRequestBody());
+        log.info("method={}, remoteAddr={}, requestUri={}, requestBody={}, cookies={}",
+                httpReq.getMethod(), httpReq.getRemoteAddr(), httpReq.getRequestURI(), httpReq.getRequestBody(), serializeCookies(httpReq.getCookies()));
         chain.doFilter(httpReq, servletResponse);
+    }
+
+    private String serializeCookies(Cookie[] cookies) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(cookies);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
     }
 
     @Override
