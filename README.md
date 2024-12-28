@@ -1,15 +1,9 @@
 # my-app-be
 
-How to start server?
-
-```bash
-bash bin/start.sh
-```
-
 How to build and push docker image?
 
 ```bash
-bash bin/build.sh
+bash build-image.sh
 docker push 17hao/my-app-be:latest
 ```
 
@@ -26,5 +20,5 @@ docker run --name my-app-be --network host -it -d 17hao/my-app-be
 How to check if the server is running?
 
 ```bash
-curl --location 'localhost:9999/test'
+curl --location 'localhost:9000/test'
 ```

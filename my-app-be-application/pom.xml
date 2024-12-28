@@ -2,6 +2,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <artifactId>my-app-be-application</artifactId>
+
     <parent>
         <groupId>xyz.shiqihao</groupId>
         <artifactId>my-app-be</artifactId>
@@ -9,13 +11,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>my-app-be-application</artifactId>
-
     <dependencies>
         <dependency>
             <groupId>xyz.shiqihao</groupId>
             <artifactId>my-app-be-protocol</artifactId>
-            <version>${my-app-be-protocol.version}</version>
         </dependency>
 
         <!-- Spring -->
