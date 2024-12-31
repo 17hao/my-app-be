@@ -5,8 +5,6 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class VerifyAccountRequest {
-    private String name;
-
-    private String password;
+public class AuthRequest {
+    private String token;
 }

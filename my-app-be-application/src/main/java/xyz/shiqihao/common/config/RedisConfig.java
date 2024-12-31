@@ -7,7 +7,7 @@ import redis.clients.jedis.JedisPooled;
 
 @Configuration
 public class RedisConfig {
-    @Bean
+    @Bean(value = "redisClient")
     public JedisPooled buildRedisClient(
             @Value("${redis.host}") String host,
             @Value("${redis.port}") int port,

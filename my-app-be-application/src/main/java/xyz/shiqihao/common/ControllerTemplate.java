@@ -11,8 +11,8 @@ import xyz.shiqihao.common.exception.BizException;
 public abstract class ControllerTemplate<T> {
     public abstract T biz();
 
-    public Response<T> exec() {
-        Response<T> res = new Response<>();
+    public HttpResponse<T> exec() {
+        HttpResponse<T> res = new HttpResponse<>();
         try {
             T t = biz();
             res.setData(t);

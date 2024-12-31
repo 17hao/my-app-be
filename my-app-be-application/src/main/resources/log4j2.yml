@@ -9,7 +9,7 @@ Configuration:
       name: console
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: "%highlight{%d %p %c [%t] %m%n}"
+        pattern: "%highlight{%d %p %c:%L [%t] %m%n}"
     RollingFile:
       - name: rolling_file
         ignoreExceptions: false

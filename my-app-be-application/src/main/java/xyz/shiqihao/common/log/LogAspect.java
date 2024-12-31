@@ -1,6 +1,6 @@
 package xyz.shiqihao.common.log;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,11 +18,26 @@ public class LogAspect {
 
     @Around(value = "controller()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startAt = System.currentTimeMillis();
+
         Object[] args = joinPoint.getArgs();
+
+        String className = joinPoint.getTarget().getClass().getName();
+
         String methodName = joinPoint.getSignature().getName();
-        log.debug(">> {} - {}", methodName, new Gson().toJson(args));
+
+        String request = "{}";
+        if (args.length > 1) {
+            request = new ObjectMapper().writeValueAsString(args[0]);
+        }
+
         Object result = joinPoint.proceed();
-        log.debug("<< {} - {}", methodName, new Gson().toJson(result));
+
+        long elapsedTime = System.currentTimeMillis() - startAt;
+
+        log.debug("{}#{} request={} response={} execTime={}ms", className, methodName,
+                request, new ObjectMapper().writeValueAsString(result), elapsedTime);
+
         return result;
     }
 }

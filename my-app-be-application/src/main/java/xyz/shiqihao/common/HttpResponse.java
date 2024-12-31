@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Response<T> {
+public class HttpResponse<T> {
     private String code;
     private String message;
     private T data;
