@@ -1,6 +1,9 @@
 package xyz.shiqihao.common.log;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -25,12 +28,35 @@ public class LogFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         RequestWrapper httpReq = new RequestWrapper((HttpServletRequest) servletRequest);
-        log.info("method={}, remoteAddr={}, requestUri={}, requestBody={}, cookies={}",
-                httpReq.getMethod(), httpReq.getRemoteAddr(), httpReq.getRequestURI(), httpReq.getRequestBody(), serializeCookies(httpReq.getCookies()));
+        log.info("method={}, remoteAddr={}, requestUri={}, requestBody={}, headers={} cookies={}",
+                httpReq.getMethod(), httpReq.getRemoteAddr(), httpReq.getRequestURI(), httpReq.getRequestBody(),
+                serializeHttpHeaders(httpReq), serializeCookies(httpReq));
         chain.doFilter(httpReq, servletResponse);
     }
 
-    private String serializeCookies(Cookie[] cookies) {
+    private String serializeHttpHeaders(RequestWrapper httpReq) {
+        Map<String, String> httpHeaders = new HashMap<>();
+
+        Enumeration<String> httpHeaderNames = httpReq.getHeaderNames();
+        if (httpHeaderNames == null) {
+            return "";
+        }
+
+        for (; httpHeaderNames.hasMoreElements(); ) {
+            String httpHeaderName = httpHeaderNames.nextElement();
+            String httpHeader = httpReq.getHeader(httpHeaderName);
+            httpHeaders.put(httpHeaderName, httpHeader);
+        }
+
+        try {
+            return new ObjectMapper().writeValueAsString(httpHeaders);
+        } catch (JsonProcessingException e) {
+            return "";
+        }
+    }
+
+    private String serializeCookies(RequestWrapper httpReq) {
+        Cookie[] cookies = httpReq.getCookies();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.writeValueAsString(cookies);
