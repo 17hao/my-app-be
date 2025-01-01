@@ -29,6 +29,13 @@ public class IpAddressFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
+
+        String isDev = req.getHeader("origin");
+        if (isDev != null && isDev.equals("http://127.0.0.1:3000")) {
+            chain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+
         String ip = req.getRemoteAddr();
         Set<String> allowedIPs = new HashSet<>();
         allowedIPs.add("81.68.104.220");

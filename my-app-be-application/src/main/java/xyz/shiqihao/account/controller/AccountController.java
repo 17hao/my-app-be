@@ -45,7 +45,7 @@ public class AccountController {
                 cookie.setHttpOnly(true);
                 cookie.setSecure(true);
                 response.addCookie(cookie);
-                return "success";
+                return token;
             }
         }.exec();
     }
