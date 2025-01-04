@@ -43,7 +43,6 @@ public class AccountController {
                 String token = accountService.verify(request.getName(), request.getPassword());
                 Cookie cookie = new Cookie("session_token", token);
                 cookie.setHttpOnly(true);
-                cookie.setSecure(true);
                 response.addCookie(cookie);
                 return token;
             }
@@ -57,8 +56,8 @@ public class AccountController {
             public Boolean biz() {
                 Cookie sessionToken = WebUtils.getCookie(request, "session_token");
                 if (sessionToken == null) {
-                    log.error("session_token not found");
-                    throw new IllegalArgumentException("invalid parameter");
+                    log.warn("session_token not found");
+                    return false;
                 }
                 return accountService.auth(sessionToken.getValue());
             }
