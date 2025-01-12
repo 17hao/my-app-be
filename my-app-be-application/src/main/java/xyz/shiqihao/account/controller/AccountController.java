@@ -11,14 +11,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.WebUtils;
+import xyz.shiqihao.account.request.AuthRequest;
 import xyz.shiqihao.account.request.RegisterAccountRequest;
 import xyz.shiqihao.account.request.VerifyAccountRequest;
 import xyz.shiqihao.account.service.AccountService;
 import xyz.shiqihao.common.ControllerTemplate;
 import xyz.shiqihao.common.HttpResponse;
+import xyz.shiqihao.common.util.AssertUtils;
 
 @RestController
-@RequestMapping(("/account"))
+@RequestMapping("/account")
 @AllArgsConstructor
 @Log4j2
 public class AccountController {
@@ -35,7 +37,10 @@ public class AccountController {
         }.exec();
     }
 
-    @PostMapping("/verify")
+    /**
+     * save toke in cookie
+     */
+    @PostMapping("/verify-v1")
     public HttpResponse<String> verify(@RequestBody VerifyAccountRequest request, HttpServletResponse response) {
         return new ControllerTemplate<String>() {
             @Override
@@ -49,7 +54,23 @@ public class AccountController {
         }.exec();
     }
 
-    @PostMapping("/auth")
+    /**
+     * save token in local storage
+     */
+    @PostMapping("/verify-v2")
+    public HttpResponse<String> verify(@RequestBody VerifyAccountRequest request) {
+        return new ControllerTemplate<String>() {
+            @Override
+            public String biz() {
+                return accountService.verify(request.getName(), request.getPassword());
+            }
+        }.exec();
+    }
+
+    /**
+     * retrieve token from cookie
+     */
+    @PostMapping("/auth-v1")
     public HttpResponse<Boolean> auth(HttpServletRequest request) {
         return new ControllerTemplate<Boolean>() {
             @Override
@@ -60,6 +81,20 @@ public class AccountController {
                     return false;
                 }
                 return accountService.auth(sessionToken.getValue());
+            }
+        }.exec();
+    }
+
+    /**
+     * retrieve token from request body
+     */
+    @PostMapping("/auth-v2")
+    public HttpResponse<Boolean> auth(@RequestBody AuthRequest request) {
+        return new ControllerTemplate<Boolean>() {
+            @Override
+            public Boolean biz() {
+                AssertUtils.isNonNull(request.getToken());
+                return accountService.auth(request.getToken());
             }
         }.exec();
     }
