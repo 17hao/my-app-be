@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,22 +31,28 @@ public class IpAddressFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-        String isDev = req.getHeader("origin");
-        if (isDev != null && isDev.equals("http://127.0.0.1:3000")) {
-            chain.doFilter(servletRequest, servletResponse);
-            return;
+        String remoteIp = req.getRemoteAddr();
+        Set<String> allowedIPs = new HashSet<>();
+        allowedIPs.add("127.0.0.1");
+        allowedIPs.add("::1");
+        allowedIPs.add("81.68.104.220");
+        allowedIPs.add("2408:8240:e15:5d0::1/60");
+
+        boolean match = false;
+        for (String allowedIp : allowedIPs) {
+            IpAddressMatcher ipAddressMatcher = new IpAddressMatcher(allowedIp);
+            if (ipAddressMatcher.matches(req.getRemoteAddr())) {
+                match = true;
+                break;
+            }
         }
 
-        String ip = req.getRemoteAddr();
-        Set<String> allowedIPs = new HashSet<>();
-        allowedIPs.add("81.68.104.220");
-        allowedIPs.add("127.0.0.1"); // postman发起请求使用127.0.0.1，用localhost会被识别为ipv6
-        if (!allowedIPs.contains(ip)) {
-            log.info("unauthorized ip {}", ip);
+        if (match) {
+            chain.doFilter(servletRequest, servletResponse);
+        } else {
+            log.info("unauthorized ip {}", remoteIp);
             resp.setStatus(HttpStatus.UNAUTHORIZED.value());
-            return;
         }
-        chain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
