@@ -1,7 +1,9 @@
 package xyz.shiqihao.common.filter;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -13,8 +15,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.web.util.matcher.IpAddressMatcher;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +39,7 @@ public class IpAddressFilter implements Filter {
         allowedIPs.add("::1");
         allowedIPs.add("81.68.104.220");
         allowedIPs.add("2408:8240:e15:5d0::1/60");
+        allowedIPs.add("240e:982:a414:1e00:388:74e2:3071:f6b1");
 
         boolean match = false;
         for (String allowedIp : allowedIPs) {
@@ -50,8 +53,13 @@ public class IpAddressFilter implements Filter {
         if (match) {
             chain.doFilter(servletRequest, servletResponse);
         } else {
-            log.info("unauthorized ip {}", remoteIp);
-            resp.setStatus(HttpStatus.UNAUTHORIZED.value());
+            log.warn("unauthorized ip {}", remoteIp);
+            Map<String, String> respBody = new HashMap<>();
+            respBody.put("code", "401");
+            respBody.put("message", "UNAUTHORIZED");
+            respBody.put("data", String.format("invalid ip %s", remoteIp));
+            resp.getWriter().write(new ObjectMapper().writeValueAsString(respBody));
+            resp.getWriter().flush();
         }
     }
 
