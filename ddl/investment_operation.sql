@@ -1,0 +1,95 @@
+-- MySQL dump 10.13  Distrib 5.7.43, for Linux (x86_64)
+--
+-- Host: localhost    Database: my_db
+-- ------------------------------------------------------
+-- Server version       5.7.43-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Dumping data for table `investment_operation`
+--
+
+LOCK TABLES `investment_operation` WRITE;
+/*!40000 ALTER TABLE `investment_operation` DISABLE KEYS */;
+INSERT INTO `investment_operation` VALUES (4242911645088243714,0,'2026-01-11 15:29:22','2026-01-11 15:29:22','2025-12-23','ibkr','buy','{\"symbol\":\"SHV\",\"l1Type\":\"usTreasury\",\"l2Type\":\"shortTerm\"}','{\"number\":\"660.62\",\"currency\":\"usd\",\"equivalentCny\":\"4659.5518\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243715,0,'2026-01-11 15:30:07','2026-01-11 15:30:07','2025-12-23','ibkr','buy','{\"symbol\":\"TLT\",\"l1Type\":\"usTreasury\",\"l2Type\":\"longTerm\"}','{\"number\":\"1308.73\",\"currency\":\"usd\",\"equivalentCny\":\"9230.8668\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243716,0,'2026-01-11 15:30:41','2026-01-11 15:30:41','2025-12-23','ibkr','buy','{\"symbol\":\"DBC\",\"l1Type\":\"commodity\",\"l2Type\":\"\"}','{\"number\":\"1011.1\",\"currency\":\"usd\",\"equivalentCny\":\"7131.5928\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243717,0,'2026-01-11 15:34:01','2026-01-11 15:34:01','2026-01-10','ibkr','buy','{\"symbol\":\"SHV\",\"l1Type\":\"usTreasury\",\"l2Type\":\"shortTerm\"}','{\"number\":\"441.35\",\"currency\":\"usd\",\"equivalentCny\":\"3112.9745\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243718,0,'2026-01-11 15:35:02','2026-01-11 15:35:02','2026-01-10','ibkr','buy','{\"symbol\":\"TLT\",\"l1Type\":\"usTreasury\",\"l2Type\":\"longTerm\"}','{\"number\":\"439.20\",\"currency\":\"cny\",\"equivalentCny\":\"3097.8099\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243719,0,'2026-01-11 15:37:19','2026-01-11 15:37:19','2026-01-06','za','buy','{\"symbol\":\"3435.hk\",\"l1Type\":\"usTreasury\",\"l2Type\":\"intermediateTerm\"}','{\"number\":\"3035.2\",\"currency\":\"hkd\",\"equivalentCny\":\"2731.16\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243720,0,'2026-01-11 15:50:11','2026-01-11 15:50:11','2025-12-03','usmart_sg','buy','{\"symbol\":\"VOO\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"629.46\",\"currency\":\"usd\",\"equivalentCny\":\"4515.2934\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243721,0,'2026-01-11 15:51:10','2026-01-11 15:51:10','2025-12-03','usmart_sg','buy','{\"symbol\":\"QQQM\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"514.59\",\"currency\":\"usd\",\"equivalentCny\":\"3691.2987\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243722,0,'2026-01-11 16:00:54','2026-01-11 16:00:54','2025-11-26','usmart_sg','buy','{\"symbol\":\"LQD\",\"l1Type\":\"otherBonds\",\"l2Type\":\"usCorporateBond\"}','{\"number\":\"113.54\",\"currency\":\"usd\",\"equivalentCny\":\"814.4543\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243723,0,'2026-01-11 16:02:00','2026-01-11 16:02:00','2025-11-26','usmart_sg','buy','{\"symbol\":\"SHV\",\"l1Type\":\"usTreasury\",\"l2Type\":\"shortTerm\"}','{\"number\":\"112.32\",\"currency\":\"usd\",\"equivalentCny\":\"805.7029\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243724,0,'2026-01-11 16:06:23','2026-01-11 16:06:23','2025-12-02','chinastock','buy','{\"symbol\":\"513820\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"1038\",\"currency\":\"cny\",\"equivalentCny\":\"1038\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243725,0,'2026-01-11 16:07:47','2026-01-11 16:07:47','2025-12-01','chinastock','buy','{\"symbol\":\"513820\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"899.2\",\"currency\":\"cny\",\"equivalentCny\":\"899.2\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243726,0,'2026-01-11 16:10:17','2026-01-11 16:10:17','2025-11-14','cmb','buy','{\"symbol\":\"008163\",\"l1Type\":\"globalStock\",\"l2Type\":\"aShares\"}','{\"number\":\"3000\",\"currency\":\"cny\",\"equivalentCny\":\"3000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243727,0,'2026-01-11 16:11:10','2026-01-11 16:11:10','2025-11-26','cmb','buy','{\"symbol\":\"022072\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243728,0,'2026-01-11 16:12:18','2026-01-11 16:12:18','2025-08-12','cmb','buy','{\"symbol\":\"021457\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"4000\",\"currency\":\"cny\",\"equivalentCny\":\"4000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243729,0,'2026-01-11 16:13:04','2026-01-11 16:13:04','2025-11-17','cmb','buy','{\"symbol\":\"028064\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243730,0,'2026-01-11 16:13:25','2026-01-11 16:13:25','2025-11-17','cmb','buy','{\"symbol\":\"018065\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243731,0,'2026-01-11 16:13:59','2026-01-11 16:13:59','2025-11-17','cmb','buy','{\"symbol\":\"018966\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243732,0,'2026-01-11 16:14:37','2026-01-11 16:14:37','2025-06-12','cmb','buy','{\"symbol\":\"019753\",\"l1Type\":\"otherBonds\",\"l2Type\":\"cnBalancedBond\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243733,0,'2026-01-11 16:15:00','2026-01-11 16:15:00','2025-08-14','cmb','buy','{\"symbol\":\"019753\",\"l1Type\":\"otherBonds\",\"l2Type\":\"cnBalancedBond\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243734,0,'2026-01-11 16:15:38','2026-01-11 16:15:38','2025-06-12','cmb','buy','{\"symbol\":\"019260\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243735,0,'2026-01-11 16:15:56','2026-01-11 16:15:56','2025-06-18','cmb','buy','{\"symbol\":\"019260\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243736,0,'2026-01-11 16:16:17','2026-01-11 16:16:17','2025-11-27','cmb','buy','{\"symbol\":\"019260\",\"l1Type\":\"globalStock\",\"l2Type\":\"hkStock\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243737,0,'2026-01-11 16:17:05','2026-01-11 16:17:05','2025-08-13','cmb','buy','{\"symbol\":\"006075\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243738,0,'2026-01-11 16:17:19','2026-01-11 16:17:19','2025-08-14','cmb','buy','{\"symbol\":\"006075\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243739,0,'2026-01-11 16:17:36','2026-01-11 16:17:36','2025-08-15','cmb','buy','{\"symbol\":\"006075\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243740,0,'2026-01-11 16:17:54','2026-01-11 16:17:54','2025-08-19','cmb','buy','{\"symbol\":\"006075\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243741,0,'2026-01-11 16:18:26','2026-01-11 16:18:26','2025-08-13','cmb','buy','{\"symbol\":\"161125\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243742,0,'2026-01-11 16:18:47','2026-01-11 16:18:47','2025-08-13','cmb','buy','{\"symbol\":\"161125\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243743,0,'2026-01-11 16:19:02','2026-01-11 16:19:02','2025-08-14','cmb','buy','{\"symbol\":\"161125\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243744,0,'2026-01-11 16:19:15','2026-01-11 16:19:15','2025-08-19','cmb','buy','{\"symbol\":\"161125\",\"l1Type\":\"usStock\",\"l2Type\":\"sp500\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243745,0,'2026-01-11 16:19:52','2026-01-11 16:19:52','2025-06-19','cmb','buy','{\"symbol\":\"008706\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243746,0,'2026-01-11 16:20:10','2026-01-11 16:20:10','2025-07-18','cmb','buy','{\"symbol\":\"008706\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243747,0,'2026-01-11 16:20:27','2026-01-11 16:20:27','2025-07-21','cmb','buy','{\"symbol\":\"008706\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243748,0,'2026-01-11 16:20:48','2026-01-11 16:20:48','2025-08-19','cmb','buy','{\"symbol\":\"008706\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243749,0,'2026-01-11 16:21:06','2026-01-11 16:21:06','2025-11-17','cmb','buy','{\"symbol\":\"008706\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243750,0,'2026-01-11 16:22:40','2026-01-11 16:22:40','2025-05-14','cmb','buy','{\"symbol\":\"539003\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243751,0,'2026-01-11 16:22:55','2026-01-11 16:22:55','2025-06-13','cmb','buy','{\"symbol\":\"539003\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243752,0,'2026-01-11 16:23:13','2026-01-11 16:23:13','2025-06-13','cmb','buy','{\"symbol\":\"539003\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243753,0,'2026-01-11 16:23:29','2026-01-11 16:23:29','2025-08-19','cmb','buy','{\"symbol\":\"539003\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243754,0,'2026-01-11 16:23:45','2026-01-11 16:23:45','2025-11-17','cmb','buy','{\"symbol\":\"539003\",\"l1Type\":\"globalStock\",\"l2Type\":\"ftse100\"}','{\"number\":\"500\",\"currency\":\"cny\",\"equivalentCny\":\"500\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243755,0,'2026-01-11 16:24:20','2026-01-11 16:24:20','2025-06-24','cmb','buy','{\"symbol\":\"016453\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243756,0,'2026-01-11 16:24:41','2026-01-11 16:24:41','2025-07-14','cmb','buy','{\"symbol\":\"016453\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243757,0,'2026-01-11 16:24:57','2026-01-11 16:24:57','2025-07-18','cmb','buy','{\"symbol\":\"016453\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243758,0,'2026-01-11 16:25:17','2026-01-11 16:25:17','2025-12-15','cmb','buy','{\"symbol\":\"016453\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243759,0,'2026-01-11 16:25:48','2026-01-11 16:25:48','2025-05-14','cmb','buy','{\"symbol\":\"016452\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243760,0,'2026-01-11 16:26:10','2026-01-11 16:26:10','2025-06-19','cmb','buy','{\"symbol\":\"016452\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243761,0,'2026-01-11 16:26:24','2026-01-11 16:26:24','2025-08-19','cmb','buy','{\"symbol\":\"016452\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243762,0,'2026-01-11 16:26:42','2026-01-11 16:26:42','2025-12-15','cmb','buy','{\"symbol\":\"016452\",\"l1Type\":\"usStock\",\"l2Type\":\"ndx100\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243763,0,'2026-01-11 16:27:28','2026-01-11 16:27:28','2025-08-12','cmb','buy','{\"symbol\":\"024623\",\"l1Type\":\"globalStock\",\"l2Type\":\"aShares\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243764,0,'2026-01-11 16:27:43','2026-01-11 16:27:43','2025-08-12','cmb','buy','{\"symbol\":\"024623\",\"l1Type\":\"globalStock\",\"l2Type\":\"aShares\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243765,0,'2026-01-11 16:28:00','2026-01-11 16:28:00','2025-08-13','cmb','buy','{\"symbol\":\"024623\",\"l1Type\":\"globalStock\",\"l2Type\":\"aShares\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243766,0,'2026-01-11 16:28:30','2026-01-11 16:28:30','2025-06-18','cmb','buy','{\"symbol\":\"000216\",\"l1Type\":\"gold\",\"l2Type\":\"\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243767,0,'2026-01-11 16:28:42','2026-01-11 16:28:42','2025-07-11','cmb','buy','{\"symbol\":\"000216\",\"l1Type\":\"gold\",\"l2Type\":\"\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243768,0,'2026-01-11 16:29:11','2026-01-11 16:29:11','2025-06-12','cmb','buy','{\"symbol\":\"000218\",\"l1Type\":\"gold\",\"l2Type\":\"\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243769,0,'2026-01-11 16:29:24','2026-01-11 16:29:24','2025-08-12','cmb','buy','{\"symbol\":\"000218\",\"l1Type\":\"gold\",\"l2Type\":\"\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243770,0,'2026-01-11 16:30:02','2026-01-11 16:30:02','2025-05-13','cmb','buy','{\"symbol\":\"002611\",\"l1Type\":\"gold\",\"l2Type\":\"\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243771,0,'2026-01-11 16:30:17','2026-01-11 16:30:17','2025-08-12','cmb','buy','{\"symbol\":\"002611\",\"l1Type\":\"gold\",\"l2Type\":\"\"}','{\"number\":\"1000\",\"currency\":\"cny\",\"equivalentCny\":\"1000\"}');
+INSERT INTO `investment_operation` VALUES (4242911645088243772,0,'2026-01-11 16:32:58','2026-01-11 16:32:58','2025-11-28','chinastock','buy','{\"symbol\":\"513880\",\"l1Type\":\"globalStock\",\"l2Type\":\"nikkei225\"}','{\"number\":\"1055\",\"currency\":\"cny\",\"equivalentCny\":\"1055\"}');
+/*!40000 ALTER TABLE `investment_operation` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-01-11 12:58:19
