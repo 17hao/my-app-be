@@ -9,7 +9,7 @@ import xyz.shiqihao.common.exception.BizException;
 
 @Log4j2
 public abstract class ControllerTemplate<T> {
-    public abstract T biz();
+    public abstract T biz() throws Exception;
 
     public HttpResponse<T> exec() {
         HttpResponse<T> res = new HttpResponse<>();

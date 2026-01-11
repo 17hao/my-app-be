@@ -17,7 +17,7 @@ public class MybatisGeneratorApp {
         try {
             List<String> warnings = new ArrayList<>();
             boolean overwrite = true;
-            String[] tables = {"order_item", "order_summary"};
+            String[] tables = {"investment_operation"};
             for (String table : tables) {
                 String resourceName = String.format("mybatis-generator/%s.xml", table);
                 String fileName = AssertUtils.isNonNull(MybatisGeneratorApp.class.getClassLoader().getResource(resourceName)).getFile();
