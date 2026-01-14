@@ -15,7 +15,7 @@ import xyz.shiqihao.common.ControllerTemplate;
 import xyz.shiqihao.common.HttpResponse;
 import xyz.shiqihao.investment.request.CreateInvestmentOperationRequest;
 import xyz.shiqihao.investment.response.CreateInvestmentOperationResponse;
-import xyz.shiqihao.investment.response.InvestmentAnalyzeResponse;
+import xyz.shiqihao.investment.response.InvestmentAnalyzeCostResponse;
 import xyz.shiqihao.investment.response.InvestmentOperationResponse;
 import xyz.shiqihao.investment.service.InvestmentOperationService;
 
@@ -58,12 +58,12 @@ public class InvestmentOperationController {
     /**
      * 汇总分析（过滤已删除）。
      */
-    @GetMapping("/analyze")
-    public HttpResponse<InvestmentAnalyzeResponse> analyze() {
-        return new ControllerTemplate<InvestmentAnalyzeResponse>() {
+    @GetMapping({"/analyze/cost"})
+    public HttpResponse<InvestmentAnalyzeCostResponse> analyzeCost() {
+        return new ControllerTemplate<InvestmentAnalyzeCostResponse>() {
             @Override
-            public InvestmentAnalyzeResponse biz() throws Exception {
-                return investmentOperationService.analyze();
+            public InvestmentAnalyzeCostResponse biz() throws Exception {
+                return investmentOperationService.analyzeCost();
             }
         }.exec();
     }
