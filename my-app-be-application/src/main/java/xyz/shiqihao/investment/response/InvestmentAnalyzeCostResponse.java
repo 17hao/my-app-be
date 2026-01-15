@@ -36,10 +36,7 @@ public class InvestmentAnalyzeCostResponse {
     public static final class ItemCostDetail {
         private String l1Type;
 
-        /**
-         * 注意：字段名与前端约定保持一致（l2Typ）。
-         */
-        private String l2Typ;
+        private String l2Type;
 
         private BigDecimal amount;
 
