@@ -25,6 +25,7 @@ import xyz.shiqihao.investment.request.CreateInvestmentOperationRequest;
 import xyz.shiqihao.investment.response.InvestmentAnalyzeCostResponse;
 import xyz.shiqihao.investment.response.InvestmentAnalyzeResponse;
 import xyz.shiqihao.investment.response.InvestmentOperationResponse;
+import xyz.shiqihao.investment.response.PageResponse;
 
 import static xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.id;
 import static xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.isDeleted;
@@ -62,32 +63,77 @@ public class InvestmentOperationService {
     /**
      * 查询操作列表：过滤已删除，按操作期倒序（再按 id 倒序兜底）。
      */
-    public List<InvestmentOperationResponse> getOperationList() throws JsonProcessingException {
+    public List<InvestmentOperationResponse> getOperationList(Integer pageNum, Integer pageSize) throws JsonProcessingException {
         SortSpecification opDateDesc = opDate.descending();
         SortSpecification idDesc = id.descending();
 
-        List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
-                c.where(isDeleted, IsEqualTo.of(false)).orderBy(opDateDesc, idDesc)
-        );
+        // 参数不传则保持原行为：查询全量
+        Integer effectivePageNum = pageNum;
+        Integer effectivePageSize = pageSize;
+        if (effectivePageNum == null || effectivePageSize == null) {
+            List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
+                    c.where(isDeleted, IsEqualTo.of(false)).orderBy(opDateDesc, idDesc)
+            );
+            return toResponses(records);
+        }
 
+        if (effectivePageNum <= 0) {
+            throw new BizException("INVALID_ARGS", "pageNum must be positive");
+        }
+        if (effectivePageSize <= 0) {
+            throw new BizException("INVALID_ARGS", "pageSize must be positive");
+        }
+
+        long offset = ((long) effectivePageNum - 1L) * (long) effectivePageSize;
+        if (offset > Integer.MAX_VALUE) {
+            // MyBatis dynamic sql offset/limit is int
+            throw new BizException("INVALID_ARGS", "pageNum/pageSize too large");
+        }
+
+        List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
+                c.where(isDeleted, IsEqualTo.of(false))
+                        .orderBy(opDateDesc, idDesc)
+                        .limit(effectivePageSize)
+                        .offset((int) offset)
+        );
+        return toResponses(records);
+    }
+
+    /**
+     * 分页查询操作列表（同时返回未删除记录总数）。
+     * <p>
+     * 当 pageNum/pageSize 为空时：list 返回全量；total 返回未删除总数。
+     */
+    public PageResponse<InvestmentOperationResponse> getOperationListPage(Integer pageNum, Integer pageSize) throws JsonProcessingException {
+        long total = investmentOperationDAO.count(c -> c.where(isDeleted, IsEqualTo.of(false)));
+
+        List<InvestmentOperationResponse> list = getOperationList(pageNum, pageSize);
+
+        PageResponse<InvestmentOperationResponse> res = new PageResponse<>();
+        res.setList(list);
+        // PageResponse.total 为 int，避免溢出
+        res.setTotal(total > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) total);
+        return res;
+    }
+
+    private List<InvestmentOperationResponse> toResponses(List<InvestmentOperationDO> records) throws JsonProcessingException {
         List<InvestmentOperationResponse> res = new ArrayList<>();
-        for (InvestmentOperationDO InvestmentOperationDO : records) {
+        for (InvestmentOperationDO operationDO : records) {
             InvestmentOperationResponse.OpItem opItem = OM
-                    .readValue(InvestmentOperationDO.getOpItem(), InvestmentOperationResponse.OpItem.class);
+                    .readValue(operationDO.getOpItem(), InvestmentOperationResponse.OpItem.class);
 
             InvestmentOperationResponse.OpAmount opAmount = OM
-                    .readValue(InvestmentOperationDO.getOpAmount(), InvestmentOperationResponse.OpAmount.class);
+                    .readValue(operationDO.getOpAmount(), InvestmentOperationResponse.OpAmount.class);
 
             InvestmentOperationResponse investmentOperationResponse = new InvestmentOperationResponse();
-            investmentOperationResponse.setId(String.valueOf(InvestmentOperationDO.getId()));
-            investmentOperationResponse.setOpDate(InvestmentOperationDO.getOpDate().toString());
-            investmentOperationResponse.setOpPlatform(InvestmentOperationDO.getOpPlatform());
-            investmentOperationResponse.setOpType(InvestmentOperationDO.getOpType());
+            investmentOperationResponse.setId(String.valueOf(operationDO.getId()));
+            investmentOperationResponse.setOpDate(operationDO.getOpDate().toString());
+            investmentOperationResponse.setOpPlatform(operationDO.getOpPlatform());
+            investmentOperationResponse.setOpType(operationDO.getOpType());
             investmentOperationResponse.setOpItem(opItem);
             investmentOperationResponse.setOpAmount(opAmount);
             res.add(investmentOperationResponse);
         }
-
         return res;
     }
 

@@ -1,7 +1,5 @@
 package xyz.shiqihao.investment.controller;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,13 +8,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.shiqihao.common.ControllerTemplate;
 import xyz.shiqihao.common.HttpResponse;
 import xyz.shiqihao.investment.request.CreateInvestmentOperationRequest;
+import xyz.shiqihao.investment.request.GetInvestmentOperationPageRequest;
 import xyz.shiqihao.investment.response.CreateInvestmentOperationResponse;
 import xyz.shiqihao.investment.response.InvestmentAnalyzeCostResponse;
 import xyz.shiqihao.investment.response.InvestmentOperationResponse;
+import xyz.shiqihao.investment.response.PageResponse;
 import xyz.shiqihao.investment.service.InvestmentOperationService;
 
 @RestController
@@ -43,14 +44,23 @@ public class InvestmentOperationController {
     }
 
     /**
-     * 查询 InvestmentOperation 列表：过滤已删除，按操作期倒序
+     * 分页查询 InvestmentOperation 列表：过滤已删除，按操作期倒序。
+     *
+     * pageNum/pageSize 支持两种来源（优先级：body > query）：
+     * 1) query 参数：pageNum/pageSize
+     * 2) body: GetInvestmentOperationPageRequest
      */
-    @GetMapping("/operations")
-    public HttpResponse<List<InvestmentOperationResponse>> getOperationList() {
-        return new ControllerTemplate<List<InvestmentOperationResponse>>() {
+    @PostMapping("/operations")
+    public HttpResponse<PageResponse<InvestmentOperationResponse>> getOperationList(
+            @RequestBody(required = false) GetInvestmentOperationPageRequest request
+    ) {
+        final Integer effectivePageNum = request.getPageNum();
+        final Integer effectivePageSize = request.getPageSize();
+
+        return new ControllerTemplate<PageResponse<InvestmentOperationResponse>>() {
             @Override
-            public List<InvestmentOperationResponse> biz() throws Exception {
-                return investmentOperationService.getOperationList();
+            public PageResponse<InvestmentOperationResponse> biz() throws Exception {
+                return investmentOperationService.getOperationListPage(effectivePageNum, effectivePageSize);
             }
         }.exec();
     }
@@ -82,3 +92,4 @@ public class InvestmentOperationController {
         }.exec();
     }
 }
+
