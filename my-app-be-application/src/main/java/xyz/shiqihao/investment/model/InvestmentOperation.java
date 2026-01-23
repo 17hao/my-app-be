@@ -70,7 +70,7 @@ public class InvestmentOperation {
 
         IBKR("盈透证券"),
 
-        HSBC_BANK("汇丰银行"),
+        HSBC("汇丰银行"),
 
         SCHWAB("嘉信理财"),
         ;
