@@ -1,7 +1,7 @@
-package xyz.shiqihao.investment.repo.dao;
+package xyz.shiqihao.investment.repository.dao;
 
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
-import static xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.*;
+import static xyz.shiqihao.investment.repository.dao.InvestmentOperationDODynamicSqlSupport.*;
 
 import jakarta.annotation.Generated;
 import java.util.Collection;
@@ -25,7 +25,7 @@ import org.mybatis.dynamic.sql.util.mybatis3.CommonCountMapper;
 import org.mybatis.dynamic.sql.util.mybatis3.CommonInsertMapper;
 import org.mybatis.dynamic.sql.util.mybatis3.CommonUpdateMapper;
 import org.mybatis.dynamic.sql.util.mybatis3.MyBatis3Utils;
-import xyz.shiqihao.investment.repo.model.InvestmentOperationDO;
+import xyz.shiqihao.investment.repository.model.InvestmentOperationDO;
 
 @Mapper
 public interface InvestmentOperationDAO extends CommonCountMapper, CommonInsertMapper<InvestmentOperationDO>, CommonUpdateMapper {

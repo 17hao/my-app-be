@@ -17,13 +17,13 @@
             <property name="useJSR310Types" value="true"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="xyz.shiqihao.investment.repo.model"
+        <javaModelGenerator targetPackage="xyz.shiqihao.investment.repository.model"
                             targetProject="my-app-be-application/src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <javaClientGenerator targetPackage="xyz.shiqihao.investment.repo.dao"
+        <javaClientGenerator targetPackage="xyz.shiqihao.investment.repository.dao"
                              targetProject="my-app-be-application/src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>

@@ -1,4 +1,4 @@
-package xyz.shiqihao.common;
+package xyz.shiqihao.common.web;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

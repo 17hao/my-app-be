@@ -1,4 +1,4 @@
-package xyz.shiqihao.common;
+package xyz.shiqihao.common.web;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HttpResponse<T> {
+
     private String code;
+
     private String message;
+
     private T data;
+
 }

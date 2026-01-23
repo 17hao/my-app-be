@@ -15,8 +15,8 @@ import xyz.shiqihao.account.request.AuthRequest;
 import xyz.shiqihao.account.request.RegisterAccountRequest;
 import xyz.shiqihao.account.request.VerifyAccountRequest;
 import xyz.shiqihao.account.service.AccountService;
-import xyz.shiqihao.common.ControllerTemplate;
-import xyz.shiqihao.common.HttpResponse;
+import xyz.shiqihao.common.web.ControllerTemplate;
+import xyz.shiqihao.common.web.HttpResponse;
 import xyz.shiqihao.common.util.AssertUtils;
 
 @RestController

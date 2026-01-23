@@ -1,4 +1,4 @@
-package xyz.shiqihao.investment.repo.model;
+package xyz.shiqihao.investment.repository.model;
 
 import jakarta.annotation.Generated;
 import java.time.LocalDate;

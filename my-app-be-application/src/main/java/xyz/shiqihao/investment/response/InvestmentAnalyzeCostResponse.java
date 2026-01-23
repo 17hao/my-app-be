@@ -52,6 +52,7 @@ public class InvestmentAnalyzeCostResponse {
     @AllArgsConstructor
     public static final class PlatformCostDetail {
         private String opPlatform;
+
         private BigDecimal amount;
 
         /**

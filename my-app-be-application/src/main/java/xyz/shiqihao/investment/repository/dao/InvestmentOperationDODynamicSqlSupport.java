@@ -1,4 +1,4 @@
-package xyz.shiqihao.investment.repo.dao;
+package xyz.shiqihao.investment.repository.dao;
 
 import jakarta.annotation.Generated;
 import java.sql.JDBCType;

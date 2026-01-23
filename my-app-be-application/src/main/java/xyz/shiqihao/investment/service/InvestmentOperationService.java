@@ -1,35 +1,29 @@
 package xyz.shiqihao.investment.service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import org.mybatis.dynamic.sql.SortSpecification;
 import org.mybatis.dynamic.sql.where.condition.IsEqualTo;
 import org.springframework.stereotype.Component;
 import xyz.shiqihao.common.IDGenerator;
 import xyz.shiqihao.common.exception.BizException;
 import xyz.shiqihao.common.util.AssertUtils;
-import xyz.shiqihao.investment.repo.dao.InvestmentOperationDAO;
-import xyz.shiqihao.investment.repo.model.InvestmentOperationDO;
+import xyz.shiqihao.investment.model.InvestmentOperation;
+import xyz.shiqihao.investment.model.InvestmentOperationDTO;
+import xyz.shiqihao.investment.repository.dao.InvestmentOperationDAO;
+import xyz.shiqihao.investment.repository.model.InvestmentOperationDO;
 import xyz.shiqihao.investment.request.CreateInvestmentOperationRequest;
-import xyz.shiqihao.investment.response.InvestmentAnalyzeCostResponse;
-import xyz.shiqihao.investment.response.InvestmentAnalyzeResponse;
-import xyz.shiqihao.investment.response.InvestmentOperationResponse;
-import xyz.shiqihao.investment.response.PageResponse;
+import xyz.shiqihao.investment.response.PageQueryInvestmentOperationResponse;
+import xyz.shiqihao.investment.util.ConvertObjectUtils;
 
-import static xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.id;
-import static xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.isDeleted;
-import static xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.opDate;
+import static xyz.shiqihao.investment.repository.dao.InvestmentOperationDODynamicSqlSupport.id;
+import static xyz.shiqihao.investment.repository.dao.InvestmentOperationDODynamicSqlSupport.isDeleted;
+import static xyz.shiqihao.investment.repository.dao.InvestmentOperationDODynamicSqlSupport.opDate;
 
 @Component
 @AllArgsConstructor
@@ -61,305 +55,37 @@ public class InvestmentOperationService {
     }
 
     /**
-     * 查询操作列表：过滤已删除，按操作期倒序（再按 id 倒序兜底）。
+     * 分页查询操作列表（同时返回未删除记录总数）。
+     * <p>
+     * 当 pageNum/pageSize 为空时：list 返回全量；total 返回未删除总数。
      */
-    public List<InvestmentOperationResponse> getOperationList(Integer pageNum, Integer pageSize) throws JsonProcessingException {
-        SortSpecification opDateDesc = opDate.descending();
-        SortSpecification idDesc = id.descending();
+    public PageQueryInvestmentOperationResponse getOperationListPage(int pageNum, int pageSize) throws JsonProcessingException {
+        long total = investmentOperationDAO.count(c -> c.where(isDeleted, IsEqualTo.of(false)));
 
-        // 参数不传则保持原行为：查询全量
-        Integer effectivePageNum = pageNum;
-        Integer effectivePageSize = pageSize;
-        if (effectivePageNum == null || effectivePageSize == null) {
-            List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
-                    c.where(isDeleted, IsEqualTo.of(false)).orderBy(opDateDesc, idDesc)
-            );
-            return toResponses(records);
-        }
-
-        if (effectivePageNum <= 0) {
-            throw new BizException("INVALID_ARGS", "pageNum must be positive");
-        }
-        if (effectivePageSize <= 0) {
-            throw new BizException("INVALID_ARGS", "pageSize must be positive");
-        }
-
-        long offset = ((long) effectivePageNum - 1L) * (long) effectivePageSize;
+        long offset = ((long) pageNum - 1L) * (long) pageSize;
         if (offset > Integer.MAX_VALUE) {
             // MyBatis dynamic sql offset/limit is int
             throw new BizException("INVALID_ARGS", "pageNum/pageSize too large");
         }
 
-        List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
+        List<InvestmentOperationDO> dataObjList = investmentOperationDAO.select(c ->
                 c.where(isDeleted, IsEqualTo.of(false))
-                        .orderBy(opDateDesc, idDesc)
-                        .limit(effectivePageSize)
+                        .orderBy(opDate.descending(), id.descending())
+                        .limit(pageSize)
                         .offset((int) offset)
         );
-        return toResponses(records);
-    }
 
-    /**
-     * 分页查询操作列表（同时返回未删除记录总数）。
-     * <p>
-     * 当 pageNum/pageSize 为空时：list 返回全量；total 返回未删除总数。
-     */
-    public PageResponse<InvestmentOperationResponse> getOperationListPage(Integer pageNum, Integer pageSize) throws JsonProcessingException {
-        long total = investmentOperationDAO.count(c -> c.where(isDeleted, IsEqualTo.of(false)));
+        List<InvestmentOperationDTO> dtoList = new ArrayList<>();
+        for (InvestmentOperationDO dataObj : dataObjList) {
+            InvestmentOperation model = ConvertObjectUtils.convertToVO(dataObj);
+            dtoList.add(ConvertObjectUtils.convertToDTO(model));
+        }
 
-        List<InvestmentOperationResponse> list = getOperationList(pageNum, pageSize);
-
-        PageResponse<InvestmentOperationResponse> res = new PageResponse<>();
-        res.setList(list);
+        PageQueryInvestmentOperationResponse res = new PageQueryInvestmentOperationResponse();
+        res.setList(dtoList);
         // PageResponse.total 为 int，避免溢出
         res.setTotal(total > Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) total);
         return res;
-    }
-
-    private List<InvestmentOperationResponse> toResponses(List<InvestmentOperationDO> records) throws JsonProcessingException {
-        List<InvestmentOperationResponse> res = new ArrayList<>();
-        for (InvestmentOperationDO operationDO : records) {
-            InvestmentOperationResponse.OpItem opItem = OM
-                    .readValue(operationDO.getOpItem(), InvestmentOperationResponse.OpItem.class);
-
-            InvestmentOperationResponse.OpAmount opAmount = OM
-                    .readValue(operationDO.getOpAmount(), InvestmentOperationResponse.OpAmount.class);
-
-            InvestmentOperationResponse investmentOperationResponse = new InvestmentOperationResponse();
-            investmentOperationResponse.setId(String.valueOf(operationDO.getId()));
-            investmentOperationResponse.setOpDate(operationDO.getOpDate().toString());
-            investmentOperationResponse.setOpPlatform(operationDO.getOpPlatform());
-            investmentOperationResponse.setOpType(operationDO.getOpType());
-            investmentOperationResponse.setOpItem(opItem);
-            investmentOperationResponse.setOpAmount(opAmount);
-            res.add(investmentOperationResponse);
-        }
-        return res;
-    }
-
-    /**
-     * /investment/analyze
-     * <p>
-     * 查询所有未删除流水，并做两类聚合：
-     * 1) 按 OpItem.l1Type 聚合
-     * 2) 按 opPlatform 聚合
-     * <p>
-     * amount 口径：sum(opAmount.equivalentCny)，SELL 按负数计入。
-     * percent：0~100。
-     */
-    public InvestmentAnalyzeResponse analyze() throws JsonProcessingException {
-        List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
-                c.where(isDeleted, IsEqualTo.of(false))
-        );
-
-        Map<String, BigDecimal> l1Type2Amount = new HashMap<>();
-        Map<String, BigDecimal> platform2Amount = new HashMap<>();
-
-        for (InvestmentOperationDO r : records) {
-            InvestmentOperationResponse.OpItem opItem = OM
-                    .readValue(r.getOpItem(), InvestmentOperationResponse.OpItem.class);
-            InvestmentOperationResponse.OpAmount opAmount = OM
-                    .readValue(r.getOpAmount(), InvestmentOperationResponse.OpAmount.class);
-
-            BigDecimal amount = parseBigDecimal(opAmount.getEquivalentCny());
-            if (amount == null) {
-                continue;
-            }
-
-            // SELL 按负数
-            if ("sell".equalsIgnoreCase(r.getOpType())) {
-                amount = amount.negate();
-            }
-
-            String l1Type = opItem == null ? null : opItem.getL1Type();
-            if (l1Type != null && !l1Type.isBlank()) {
-                l1Type2Amount.merge(l1Type, amount, BigDecimal::add);
-            }
-
-            String platform = r.getOpPlatform();
-            if (platform != null && !platform.isBlank()) {
-                platform2Amount.merge(platform, amount, BigDecimal::add);
-            }
-        }
-
-        List<InvestmentAnalyzeResponse.InvItemAnalysis> itemAnalyzes = buildItemAnalyzes(l1Type2Amount);
-        List<InvestmentAnalyzeResponse.InvPlatformAnalysis> platformAnalyzes = buildPlatformAnalyzes(platform2Amount);
-
-        return new InvestmentAnalyzeResponse(itemAnalyzes, platformAnalyzes);
-    }
-
-    /**
-     * /investment/analyzeCost
-     * <p>
-     * 查询所有未删除流水，并做两类聚合：
-     * 1) 按 (OpItem.l1Type, OpItem.l2Type) 聚合
-     * 2) 按 opPlatform 聚合
-     * <p>
-     * amount 口径：sum(opAmount.equivalentCny)，SELL 按负数计入。
-     * percent：0~100。
-     */
-    public InvestmentAnalyzeCostResponse analyzeCost() throws JsonProcessingException {
-        List<InvestmentOperationDO> records = investmentOperationDAO.select(c ->
-                c.where(isDeleted, IsEqualTo.of(false))
-        );
-
-        Map<ItemKey, BigDecimal> itemKey2Amount = new HashMap<>();
-        Map<String, BigDecimal> platform2Amount = new HashMap<>();
-
-        for (InvestmentOperationDO r : records) {
-            InvestmentOperationResponse.OpItem opItem = OM
-                    .readValue(r.getOpItem(), InvestmentOperationResponse.OpItem.class);
-            InvestmentOperationResponse.OpAmount opAmount = OM
-                    .readValue(r.getOpAmount(), InvestmentOperationResponse.OpAmount.class);
-
-            BigDecimal amount = parseBigDecimal(opAmount.getEquivalentCny());
-            if (amount == null) {
-                continue;
-            }
-
-            // SELL 按负数
-            if ("sell".equalsIgnoreCase(r.getOpType())) {
-                amount = amount.negate();
-            }
-
-            String l1Type = opItem == null ? null : opItem.getL1Type();
-            String l2Type = opItem == null ? null : opItem.getL2Type();
-            if (l1Type != null && !l1Type.isBlank()) {
-                itemKey2Amount.merge(new ItemKey(l1Type, defaultString(l2Type)), amount, BigDecimal::add);
-            }
-
-            String platform = r.getOpPlatform();
-            if (platform != null && !platform.isBlank()) {
-                platform2Amount.merge(platform, amount, BigDecimal::add);
-            }
-        }
-
-        List<InvestmentAnalyzeCostResponse.ItemCostDetail> itemCostDetails = buildItemCostDetails(itemKey2Amount);
-        List<InvestmentAnalyzeCostResponse.PlatformCostDetail> platformCostDetails =
-                buildPlatformCostDetails(platform2Amount);
-
-        return new InvestmentAnalyzeCostResponse(itemCostDetails, platformCostDetails);
-    }
-
-    private List<InvestmentAnalyzeCostResponse.ItemCostDetail> buildItemCostDetails(Map<ItemKey, BigDecimal> itemKey2Amount) {
-        BigDecimal total = itemKey2Amount.values().stream()
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        List<InvestmentAnalyzeCostResponse.ItemCostDetail> res = new ArrayList<>();
-        for (Map.Entry<ItemKey, BigDecimal> e : itemKey2Amount.entrySet()) {
-            BigDecimal amount = defaultBigDecimal(e.getValue());
-            BigDecimal percent = calcPercent(amount, total);
-            res.add(new InvestmentAnalyzeCostResponse.ItemCostDetail(
-                    e.getKey().l1Type,
-                    e.getKey().l2Type,
-                    amount,
-                    percent
-            ));
-        }
-        res.sort(Comparator.comparing(InvestmentAnalyzeCostResponse.ItemCostDetail::getAmount).reversed());
-        return res;
-    }
-
-    private List<InvestmentAnalyzeCostResponse.PlatformCostDetail> buildPlatformCostDetails(Map<String, BigDecimal> platform2Amount) {
-        BigDecimal total = platform2Amount.values().stream()
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        List<InvestmentAnalyzeCostResponse.PlatformCostDetail> res = new ArrayList<>();
-        for (Map.Entry<String, BigDecimal> e : platform2Amount.entrySet()) {
-            BigDecimal amount = defaultBigDecimal(e.getValue());
-            BigDecimal percent = calcPercent(amount, total);
-            res.add(new InvestmentAnalyzeCostResponse.PlatformCostDetail(e.getKey(), amount, percent));
-        }
-        res.sort(Comparator.comparing(InvestmentAnalyzeCostResponse.PlatformCostDetail::getAmount).reversed());
-        return res;
-    }
-
-    private String defaultString(String x) {
-        return x == null ? "" : x;
-    }
-
-    private static final class ItemKey {
-        private final String l1Type;
-        private final String l2Type;
-
-        private ItemKey(String l1Type, String l2Type) {
-            this.l1Type = l1Type;
-            this.l2Type = l2Type;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (!(o instanceof ItemKey)) {
-                return false;
-            }
-            ItemKey that = (ItemKey) o;
-            return l1Type.equals(that.l1Type) && l2Type.equals(that.l2Type);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = l1Type.hashCode();
-            result = 31 * result + l2Type.hashCode();
-            return result;
-        }
-    }
-
-    private List<InvestmentAnalyzeResponse.InvItemAnalysis> buildItemAnalyzes(Map<String, BigDecimal> l1Type2Amount) {
-        BigDecimal total = l1Type2Amount.values().stream()
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        List<InvestmentAnalyzeResponse.InvItemAnalysis> res = new ArrayList<>();
-        for (Map.Entry<String, BigDecimal> e : l1Type2Amount.entrySet()) {
-            BigDecimal amount = defaultBigDecimal(e.getValue());
-            BigDecimal percent = calcPercent(amount, total);
-            res.add(new InvestmentAnalyzeResponse.InvItemAnalysis(e.getKey(), amount, percent));
-        }
-
-        // amount 倒序
-        res.sort(Comparator.comparing(InvestmentAnalyzeResponse.InvItemAnalysis::getAmount).reversed());
-        return res;
-    }
-
-    private List<InvestmentAnalyzeResponse.InvPlatformAnalysis> buildPlatformAnalyzes(Map<String, BigDecimal> platform2Amount) {
-        BigDecimal total = platform2Amount.values().stream()
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        List<InvestmentAnalyzeResponse.InvPlatformAnalysis> res = new ArrayList<>();
-        for (Map.Entry<String, BigDecimal> e : platform2Amount.entrySet()) {
-            BigDecimal amount = defaultBigDecimal(e.getValue());
-            BigDecimal percent = calcPercent(amount, total);
-            res.add(new InvestmentAnalyzeResponse.InvPlatformAnalysis(e.getKey(), amount, percent));
-        }
-        res.sort(Comparator.comparing(InvestmentAnalyzeResponse.InvPlatformAnalysis::getAmount).reversed());
-        return res;
-    }
-
-    private BigDecimal calcPercent(BigDecimal amount, BigDecimal total) {
-        if (total == null || total.compareTo(BigDecimal.ZERO) == 0) {
-            return BigDecimal.ZERO;
-        }
-        // percent = amount / total * 100
-        return amount
-                .multiply(new BigDecimal("100"))
-                .divide(total, 4, RoundingMode.HALF_UP);
-    }
-
-    private BigDecimal defaultBigDecimal(BigDecimal x) {
-        return x == null ? BigDecimal.ZERO : x;
-    }
-
-    private BigDecimal parseBigDecimal(String v) {
-        if (v == null || v.isBlank()) {
-            return null;
-        }
-        try {
-            return new BigDecimal(v);
-        } catch (Exception ignore) {
-            return null;
-        }
     }
 
     /**
@@ -375,9 +101,9 @@ public class InvestmentOperationService {
 
         int updated = investmentOperationDAO.update(c ->
                 c.set(isDeleted).equalTo(true)
-                        .set(xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.updateTime)
+                        .set(xyz.shiqihao.investment.repository.dao.InvestmentOperationDODynamicSqlSupport.updateTime)
                         .equalTo(LocalDateTime.now())
-                        .where(xyz.shiqihao.investment.repo.dao.InvestmentOperationDODynamicSqlSupport.id,
+                        .where(xyz.shiqihao.investment.repository.dao.InvestmentOperationDODynamicSqlSupport.id,
                                 IsEqualTo.of(id))
                         .and(isDeleted, IsEqualTo.of(false))
         );

@@ -1,4 +1,4 @@
-package xyz.shiqihao.investment.response;
+package xyz.shiqihao.common.web;
 
 import java.util.List;
 
