@@ -23,4 +23,4 @@ redis:
   port: 16379
   password: 123456
 
-jwtSecretKey: mock
+jwtSecretKey: BObrNLDYrarBp_miPwmzrDEgDYOENB1uYJ702R143wI

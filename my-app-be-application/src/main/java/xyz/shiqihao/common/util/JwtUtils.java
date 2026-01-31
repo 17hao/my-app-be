@@ -18,18 +18,15 @@ import org.springframework.stereotype.Component;
 @Component
 @Log4j2
 public class JwtUtils {
+
+    private static final String accountIdConst = "accountId";
+    private static final String accountNameConst = "accountName";
+    private static final String expireAtConst = "expireAt";
+
     private final String secretKey;
 
     public JwtUtils(@Value("${jwtSecretKey}") String secretKey) {
         this.secretKey = secretKey;
-    }
-
-    private SecretKey generateKey() {
-        // https://github.com/jwtk/jjwt?tab=readme-ov-file#secret-keys
-        SecretKey secretKey = Jwts.SIG.HS256.key().build();
-        String secretStr = Encoders.BASE64URL.encode(secretKey.getEncoded());
-        log.info(secretStr);
-        return secretKey;
     }
 
     private SecretKey loadSecretKey() {
@@ -37,12 +34,12 @@ public class JwtUtils {
         return Keys.hmacShaKeyFor(Decoders.BASE64URL.decode(secretKey));
     }
 
-    public String buildJwt(Long userId, String userName) {
+    public String buildAccountJwt(Long accountId, String accountName) {
         return Jwts.builder()
                 .claims()
-                .add("userId", String.valueOf(userId))
-                .add("userName", userName)
-                .add("expireAt", LocalDateTime.now().plusWeeks(1).toString())
+                .add(accountIdConst, String.valueOf(accountId))
+                .add(accountName, accountName)
+                .add(expireAtConst, LocalDateTime.now().plusWeeks(1).toString())
                 .and()
                 .signWith(loadSecretKey())
                 .compact();
@@ -55,15 +52,27 @@ public class JwtUtils {
                 .getPayload();
 
         Map<String, String> res = new HashMap<>();
-        if (jwtClaim.containsKey("userId")) {
-            res.put("userId", (String) jwtClaim.get("userId"));
+        if (jwtClaim.containsKey(accountIdConst)) {
+            res.put(accountIdConst, (String) jwtClaim.get(accountIdConst));
         }
-        if (jwtClaim.containsKey("userName")) {
-            res.put("userName", (String) jwtClaim.get("userName"));
+        if (jwtClaim.containsKey(accountNameConst)) {
+            res.put(accountNameConst, (String) jwtClaim.get(accountNameConst));
         }
-        if (jwtClaim.containsKey("expireAt")) {
-            res.put("expireAt", (String) jwtClaim.get("expireAt"));
+        if (jwtClaim.containsKey(expireAtConst)) {
+            res.put(expireAtConst, (String) jwtClaim.get(expireAtConst));
         }
         return res;
     }
+
+    private static void generateKey() {
+        // https://github.com/jwtk/jjwt?tab=readme-ov-file#secret-keys
+        SecretKey secretKey = Jwts.SIG.HS256.key().build();
+        String secretStr = Encoders.BASE64URL.encode(secretKey.getEncoded());
+        System.out.println(secretStr);
+    }
+
+    public static void main(String[] args) {
+        generateKey();
+    }
+
 }

@@ -62,7 +62,7 @@ public class AccountService {
         if (BCrypt.verifyer().verify(password.getBytes(), accountDO.getPasswordHash().getBytes()).verified) {
             // String token = jwtUtils.buildJwt(accountDO.getId());
             // redisClient.set(token, accountName);
-            return jwtUtils.buildJwt(accountDO.getId(), accountName);
+            return jwtUtils.buildAccountJwt(accountDO.getId(), accountName);
         }
         throw new AccountException("account password is invalid");
     }

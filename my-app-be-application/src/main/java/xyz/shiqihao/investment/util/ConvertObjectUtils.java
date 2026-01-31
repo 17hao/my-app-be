@@ -21,8 +21,8 @@ public class ConvertObjectUtils {
 
         res.setId(String.valueOf(dataObj.getId()));
         res.setOpDate(dataObj.getOpDate());
-        res.setOpPlatform(InvestmentOperation.OpPlatform.valueOf(dataObj.getOpPlatform()));
-        res.setOpType(InvestmentOperation.OpType.valueOf(dataObj.getOpType()));
+        res.setOpPlatform(InvestmentOperation.OpPlatform.valueOf(dataObj.getOpPlatform().toUpperCase()));
+        res.setOpType(InvestmentOperation.OpType.valueOf(dataObj.getOpType().toUpperCase()));
         res.setOpItem(opItem);
         res.setOpAmount(opAmount);
         return res;

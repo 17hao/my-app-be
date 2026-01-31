@@ -8,7 +8,7 @@ public class JwtUtilsTest {
 
     @Test
     public void buildJwt_case1() {
-        String jwt = jwtUtils.buildJwt(1L, "test");
+        String jwt = jwtUtils.buildAccountJwt(1L, "test");
         System.out.println(jwt);
         Assert.assertNotNull(jwt);
     }

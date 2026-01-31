@@ -40,18 +40,18 @@ public class InvestmentOperationService {
         AssertUtils.isNonNull(request.getOpItem());
         AssertUtils.isNonNull(request.getOpAmount());
 
-        InvestmentOperationDO opeartionDO = new InvestmentOperationDO();
-        opeartionDO.setId(IDGenerator.gen());
-        opeartionDO.setIsDeleted(false);
-        opeartionDO.setCreateTime(LocalDateTime.now());
-        opeartionDO.setUpdateTime(LocalDateTime.now());
-        opeartionDO.setOpDate(LocalDate.parse(request.getOpDate()));
-        opeartionDO.setOpPlatform(request.getOpPlatform());
-        opeartionDO.setOpType(request.getOpType());
-        opeartionDO.setOpItem(OM.writeValueAsString(request.getOpItem()));
-        opeartionDO.setOpAmount(OM.writeValueAsString(request.getOpAmount()));
-        investmentOperationDAO.insert(opeartionDO);
-        return opeartionDO.getId();
+        InvestmentOperationDO operationDO = new InvestmentOperationDO();
+        operationDO.setId(IDGenerator.gen());
+        operationDO.setIsDeleted(false);
+        operationDO.setCreateTime(LocalDateTime.now());
+        operationDO.setUpdateTime(LocalDateTime.now());
+        operationDO.setOpDate(LocalDate.parse(request.getOpDate()));
+        operationDO.setOpPlatform(request.getOpPlatform());
+        operationDO.setOpType(request.getOpType());
+        operationDO.setOpItem(OM.writeValueAsString(request.getOpItem()));
+        operationDO.setOpAmount(OM.writeValueAsString(request.getOpAmount()));
+        investmentOperationDAO.insert(operationDO);
+        return operationDO.getId();
     }
 
     /**
