@@ -58,23 +58,24 @@ public class InvestmentOperation {
     @Getter
     @AllArgsConstructor
     public enum OpPlatform {
-        CMB("招商银行"),
+        CMB("cmb", "招商银行"),
 
-        YINHE("银河证券"),
+        YINHE("yinhe", "银河证券"),
 
-        PINGAN("平安证券"),
+        PINGAN("pingan", "平安证券"),
 
-        USMART_SG("盈立证券sg"),
+        USMART_SG("usmart_sg", "盈立证券sg"),
 
-        ZA_BANK("众安银行"),
+        ZA_BANK("za_bank", "众安银行"),
 
-        IBKR("盈透证券"),
+        IBKR("ibkr", "盈透证券"),
 
-        HSBC("汇丰银行"),
+        HSBC("hsbc", "汇丰银行"),
 
-        SCHWAB("嘉信理财"),
+        SCHWAB("schwab", "嘉信理财"),
         ;
 
+        private final String code;
 
         private final String desc;
     }
@@ -82,11 +83,12 @@ public class InvestmentOperation {
     @Getter
     @AllArgsConstructor
     public enum OpType {
-        BUY("买入"),
+        BUY("buy", "买入"),
 
-        SELL("卖出"),
+        SELL("sell", "卖出"),
         ;
 
+        private final String code;
 
         private final String desc;
     }

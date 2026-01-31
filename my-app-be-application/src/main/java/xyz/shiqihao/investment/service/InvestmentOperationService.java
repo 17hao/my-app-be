@@ -14,7 +14,7 @@ import xyz.shiqihao.common.IDGenerator;
 import xyz.shiqihao.common.exception.BizException;
 import xyz.shiqihao.common.util.AssertUtils;
 import xyz.shiqihao.investment.model.InvestmentOperation;
-import xyz.shiqihao.investment.model.InvestmentOperationDTO;
+import xyz.shiqihao.investment.response.dto.InvestmentOperationDTO;
 import xyz.shiqihao.investment.repository.dao.InvestmentOperationDAO;
 import xyz.shiqihao.investment.repository.model.InvestmentOperationDO;
 import xyz.shiqihao.investment.request.CreateInvestmentOperationRequest;

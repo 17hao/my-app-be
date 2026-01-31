@@ -3,7 +3,7 @@ package xyz.shiqihao.investment.util;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import xyz.shiqihao.investment.model.InvestmentOperation;
-import xyz.shiqihao.investment.model.InvestmentOperationDTO;
+import xyz.shiqihao.investment.response.dto.InvestmentOperationDTO;
 import xyz.shiqihao.investment.repository.model.InvestmentOperationDO;
 
 public class ConvertObjectUtils {

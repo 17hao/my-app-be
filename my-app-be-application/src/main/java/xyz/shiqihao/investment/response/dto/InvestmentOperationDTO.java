@@ -1,7 +1,8 @@
-package xyz.shiqihao.investment.model;
+package xyz.shiqihao.investment.response.dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import xyz.shiqihao.investment.model.InvestmentOperation;
 
 @Setter
 @Getter
